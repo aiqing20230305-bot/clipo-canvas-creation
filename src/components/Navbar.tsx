@@ -2,19 +2,23 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border">
       <div className="container mx-auto px-6 flex items-center justify-between h-16">
-        <a href="#" className="text-xl font-bold text-gradient-gold tracking-tight">
-          Clipo
+        <a href="https://clipo.cc" className="flex items-center gap-2">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" className="fill-primary" />
+            <path d="M10 16L14 20L22 12" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+          <span className="text-lg font-semibold text-foreground">Clipo</span>
         </a>
-        <div className="hidden md:flex items-center gap-8">
-          <a href="#solutions" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+        <div className="flex items-center gap-6">
+          <a href="#solutions" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden md:block">
             解决方案
           </a>
-          <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            报价方案
+          <a href="#pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors hidden md:block">
+            报价
           </a>
           <a
-            href="#"
-            className="px-5 py-2 rounded-lg bg-gradient-gold text-primary-foreground text-sm font-semibold hover:opacity-90 transition-opacity"
+            href="https://asset.clipo.cc/video-agent/signup"
+            className="px-5 py-2 rounded-full bg-gradient-purple text-primary-foreground text-sm font-medium hover:opacity-90 transition-opacity"
           >
             立即体验
           </a>

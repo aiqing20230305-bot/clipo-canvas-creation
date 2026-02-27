@@ -22,57 +22,42 @@ const painPoints = [
   },
 ];
 
-const container = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const item = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
-
 const PainPointsSection = () => {
   return (
-    <section className="py-24 relative">
+    <section className="py-24">
       <div className="container mx-auto px-6">
         <motion.div
-          className="text-center mb-16"
+          className="mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             规模化内容生产的挑战
           </h2>
           <p className="text-muted-foreground text-lg">效率与成本的博弈</p>
         </motion.div>
 
-        <motion.div
-          className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto"
-          variants={container}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-        >
-          {painPoints.map((point) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {painPoints.map((point, i) => (
             <motion.div
               key={point.title}
-              variants={item}
-              className="bg-card rounded-xl p-8 border border-border hover:border-primary/30 transition-colors group"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors"
             >
-              <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center mb-6 group-hover:glow-gold transition-shadow">
-                <point.icon className="w-7 h-7 text-primary" />
+              <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5">
+                <point.icon className="w-6 h-6 text-primary" />
               </div>
-              <h3 className="text-xl font-bold text-foreground mb-1">{point.title}</h3>
-              <p className="text-sm text-primary mb-3">{point.subtitle}</p>
-              <p className="text-muted-foreground leading-relaxed">{point.description}</p>
+              <h3 className="text-lg font-semibold text-foreground mb-1">{point.title}</h3>
+              <p className="text-xs text-primary mb-3 font-medium">{point.subtitle}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{point.description}</p>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );
