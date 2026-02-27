@@ -5,9 +5,9 @@ const HeroSection = () => {
     <section className="relative min-h-[85vh] flex items-center pt-16">
       <div className="container mx-auto px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          transition={{ type: "spring", stiffness: 80, damping: 20, mass: 1 }}
           className="max-w-3xl"
         >
           <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
@@ -24,7 +24,7 @@ const HeroSection = () => {
           className="flex gap-4"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ type: "spring", stiffness: 100, damping: 18, delay: 0.3 }}
         >
           <a
             href="#solutions"

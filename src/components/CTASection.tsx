@@ -6,10 +6,10 @@ const CTASection = () => {
       <div className="container mx-auto px-6">
         <motion.div
           className="text-center max-w-2xl mx-auto"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: 30, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ type: "spring", stiffness: 80, damping: 18 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             准备好开始AI创作之旅了吗？

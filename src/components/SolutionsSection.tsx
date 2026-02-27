@@ -43,10 +43,10 @@ const SolutionsSection = () => {
       <div className="container mx-auto px-6">
         <motion.div
           className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             全链路智能内容工厂
@@ -58,10 +58,10 @@ const SolutionsSection = () => {
           {solutions.map((sol, i) => (
             <motion.div
               key={sol.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.12 }}
               className="bg-card rounded-2xl p-8 border border-border relative overflow-hidden group hover:border-primary/30 transition-colors"
             >
               <span className="absolute top-4 right-6 text-6xl font-bold text-foreground/5">
