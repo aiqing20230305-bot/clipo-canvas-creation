@@ -28,10 +28,10 @@ const PainPointsSection = () => {
       <div className="container mx-auto px-6">
         <motion.div
           className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             规模化内容生产的挑战
@@ -43,10 +43,10 @@ const PainPointsSection = () => {
           {painPoints.map((point, i) => (
             <motion.div
               key={point.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
+              initial={{ opacity: 0, y: 30, scale: 0.97 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
+              transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.1 }}
               className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors"
             >
               <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5">
