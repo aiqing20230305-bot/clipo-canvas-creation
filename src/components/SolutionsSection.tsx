@@ -62,7 +62,8 @@ const SolutionsSection = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.12 }}
-              className="bg-card rounded-2xl p-8 border border-border relative overflow-hidden group hover:border-primary/30 transition-colors"
+              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className="bg-card rounded-2xl p-8 border border-border relative overflow-hidden group hover:border-primary/30 transition-colors cursor-pointer"
             >
               <span className="absolute top-4 right-6 text-6xl font-bold text-foreground/5">
                 {sol.number}

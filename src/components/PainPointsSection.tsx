@@ -47,7 +47,8 @@ const PainPointsSection = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.1 }}
-              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors"
+              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors cursor-pointer"
             >
               <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5">
                 <point.icon className="w-6 h-6 text-primary" />
