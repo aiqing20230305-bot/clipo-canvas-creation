@@ -40,10 +40,12 @@ const PricingCalculator = () => {
   const [cpmTierIndex, setCpmTierIndex] = useState(0);
   const [upgradeContent, setUpgradeContent] = useState(false);
   const [ecommerce, setEcommerce] = useState(false);
+  const [months, setMonths] = useState(1);
 
   const safeCpmIndex = Math.min(cpmTierIndex, CPM_TIERS.length - 1);
 
   const estimate = useMemo(() => {
+    const m = Math.max(1, months);
     if (billing === "volume") {
       const qty = Math.max(1, volumeQty);
       const tier = getVolumeTier(qty);
@@ -52,26 +54,30 @@ const PricingCalculator = () => {
       const productionCost = qty * unitPrice;
       const opsCost = tier.ops;
       const ecommerceCost = ecommerce ? qty * 80 : 0;
+      const monthlyTotal = productionCost + opsCost + ecommerceCost;
       return {
         tierLabel: tier.label,
         unitPrice,
         productionCost,
         opsCost,
         ecommerceCost,
-        total: productionCost + opsCost + ecommerceCost,
+        monthly: monthlyTotal,
+        total: monthlyTotal * m,
       };
     } else {
       const t = CPM_TIERS[safeCpmIndex];
+      const monthlyTotal = t.total + t.ops;
       return {
         tierLabel: t.label,
         unitPrice: t.cpm,
         productionCost: t.total,
         opsCost: t.ops,
         ecommerceCost: 0,
-        total: t.total + t.ops,
+        monthly: monthlyTotal,
+        total: monthlyTotal * m,
       };
     }
-  }, [billing, volumeQty, safeCpmIndex, upgradeContent, ecommerce]);
+  }, [billing, volumeQty, safeCpmIndex, upgradeContent, ecommerce, months]);
 
   const regionLabel = region === "domestic" ? "国内" : "海外";
   const billingLabel = billing === "volume" ? "按条计费" : "按曝光计费";
@@ -252,10 +258,38 @@ const PricingCalculator = () => {
               </div>
             </div>
 
+            {/* ── 运营周期 ── */}
+            <div className="p-6 md:p-8 border-b border-border">
+              <label className="text-xs text-muted-foreground mb-4 block">运营周期（月）</label>
+              <div className="flex items-center gap-3">
+                {[1, 3, 6, 12].map((m) => (
+                  <button
+                    key={m}
+                    onClick={() => setMonths(m)}
+                    className={`px-4 py-2 rounded-xl text-sm font-medium border transition-all ${
+                      months === m
+                        ? "bg-primary text-primary-foreground border-primary shadow-md"
+                        : "bg-secondary border-border text-muted-foreground hover:border-primary/30"
+                    }`}
+                  >
+                    {m} 个月
+                  </button>
+                ))}
+                <input
+                  type="number"
+                  min={1}
+                  max={36}
+                  value={months}
+                  onChange={(e) => setMonths(Math.max(1, Math.min(36, Number(e.target.value) || 1)))}
+                  className="w-20 bg-secondary border border-border rounded-xl px-3 py-2 text-sm text-foreground text-center focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                />
+              </div>
+            </div>
+
             {/* ── 报价结果 ── */}
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${billing}-${volumeQty}-${safeCpmIndex}-${upgradeContent}-${ecommerce}`}
+                key={`${billing}-${volumeQty}-${safeCpmIndex}-${upgradeContent}-${ecommerce}-${months}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -271,8 +305,15 @@ const PricingCalculator = () => {
                       <span className="text-5xl font-bold text-gradient-purple">
                         ¥{estimate.total.toLocaleString()}
                       </span>
-                      <span className="text-muted-foreground text-sm">/月预估</span>
+                      <span className="text-muted-foreground text-sm">
+                        / {months > 1 ? `${months}个月合计` : "月预估"}
+                      </span>
                     </div>
+                    {months > 1 && (
+                      <p className="text-sm text-muted-foreground mt-1">
+                        月均 ¥{estimate.monthly.toLocaleString()}
+                      </p>
+                    )}
 
                     {/* 明细 */}
                     <div className="mt-4 flex flex-wrap gap-x-6 gap-y-1 text-sm text-muted-foreground">
