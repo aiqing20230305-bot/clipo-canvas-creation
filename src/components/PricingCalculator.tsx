@@ -3,12 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Globe, MapPin, Film, Eye, ShoppingCart, Sparkles, ChevronRight } from "lucide-react";
 
 // ── 数据层 ──────────────────────────────────────────────────
-const VOLUME_TIERS = [
-  { label: "< 5,000 条", value: 2500, price: 25, ops: 0 },
-  { label: "5,000 – 10,000 条", value: 7500, price: 15, ops: 12000 },
-  { label: "10,000 – 50,000 条", value: 30000, price: 10, ops: 12000 },
-  { label: "> 50,000 条", value: 60000, price: 5, ops: 12000 },
+// 按条计费：根据数量匹配单价档位
+const VOLUME_PRICE_TIERS = [
+  { min: 0, max: 4999, price: 25, ops: 0, label: "< 5,000 条" },
+  { min: 5000, max: 9999, price: 15, ops: 12000, label: "5,000 – 10,000 条" },
+  { min: 10000, max: 49999, price: 10, ops: 12000, label: "10,000 – 50,000 条" },
+  { min: 50000, max: Infinity, price: 5, ops: 12000, label: "≥ 50,000 条" },
 ];
+
+const getVolumeTier = (qty: number) =>
+  VOLUME_PRICE_TIERS.find((t) => qty >= t.min && qty <= t.max) ?? VOLUME_PRICE_TIERS[0];
 
 const CPM_TIERS = [
   { label: "100w 曝光", cpm: 12, total: 12000, ops: 0 },
@@ -32,28 +36,24 @@ const DISTRIBUTION_OVERSEAS = [
 const PricingCalculator = () => {
   const [region, setRegion] = useState<"domestic" | "overseas">("domestic");
   const [billing, setBilling] = useState<"volume" | "cpm">("volume");
-  const [tierIndex, setTierIndex] = useState(0);
+  const [volumeQty, setVolumeQty] = useState(1000);
+  const [cpmTierIndex, setCpmTierIndex] = useState(0);
   const [upgradeContent, setUpgradeContent] = useState(false);
   const [ecommerce, setEcommerce] = useState(false);
 
-  const tiers = billing === "volume" ? VOLUME_TIERS : CPM_TIERS;
-  const currentTier = tiers[tierIndex];
-
-  // 保证切换模式时 index 合法
-  const safeTierIndex = Math.min(tierIndex, tiers.length - 1);
+  const safeCpmIndex = Math.min(cpmTierIndex, CPM_TIERS.length - 1);
 
   const estimate = useMemo(() => {
-    const idx = Math.min(tierIndex, tiers.length - 1);
-    const tier = tiers[idx];
-
     if (billing === "volume") {
-      const t = tier as (typeof VOLUME_TIERS)[number];
-      let unitPrice = t.price;
+      const qty = Math.max(1, volumeQty);
+      const tier = getVolumeTier(qty);
+      let unitPrice = tier.price;
       if (upgradeContent) unitPrice += 10;
-      const productionCost = t.value * unitPrice;
-      const opsCost = t.ops;
-      const ecommerceCost = ecommerce ? t.value * 80 : 0;
+      const productionCost = qty * unitPrice;
+      const opsCost = tier.ops;
+      const ecommerceCost = ecommerce ? qty * 80 : 0;
       return {
+        tierLabel: tier.label,
         unitPrice,
         productionCost,
         opsCost,
@@ -61,18 +61,17 @@ const PricingCalculator = () => {
         total: productionCost + opsCost + ecommerceCost,
       };
     } else {
-      const t = tier as (typeof CPM_TIERS)[number];
-      const baseCost = t.total;
-      const opsCost = t.ops;
+      const t = CPM_TIERS[safeCpmIndex];
       return {
+        tierLabel: t.label,
         unitPrice: t.cpm,
-        productionCost: baseCost,
-        opsCost,
+        productionCost: t.total,
+        opsCost: t.ops,
         ecommerceCost: 0,
-        total: baseCost + opsCost,
+        total: t.total + t.ops,
       };
     }
-  }, [tierIndex, billing, upgradeContent, ecommerce, tiers]);
+  }, [billing, volumeQty, safeCpmIndex, upgradeContent, ecommerce]);
 
   const regionLabel = region === "domestic" ? "国内" : "海外";
   const billingLabel = billing === "volume" ? "按条计费" : "按曝光计费";
@@ -91,7 +90,7 @@ const PricingCalculator = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
             智能<span className="text-gradient-purple">报价计算器</span>
           </h2>
-          <p className="text-muted-foreground text-lg">拖动档位，实时查看您的专属报价</p>
+          <p className="text-muted-foreground text-lg">输入数量，实时查看您的专属报价</p>
         </motion.div>
 
         <motion.div
@@ -115,7 +114,7 @@ const PricingCalculator = () => {
                     ].map((opt) => (
                       <button
                         key={opt.key}
-                        onClick={() => { setRegion(opt.key); setTierIndex(0); }}
+                        onClick={() => { setRegion(opt.key); }}
                         className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
                           region === opt.key
                             ? "bg-gradient-purple text-primary-foreground shadow-lg"
@@ -139,7 +138,7 @@ const PricingCalculator = () => {
                     ].map((opt) => (
                       <button
                         key={opt.key}
-                        onClick={() => { setBilling(opt.key); setTierIndex(0); }}
+                        onClick={() => { setBilling(opt.key); setCpmTierIndex(0); }}
                         className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-lg text-sm font-medium transition-all ${
                           billing === opt.key
                             ? "bg-gradient-purple text-primary-foreground shadow-lg"
@@ -155,63 +154,62 @@ const PricingCalculator = () => {
               </div>
             </div>
 
-            {/* ── 档位滑块 ── */}
+            {/* ── 数量输入 / 档位选择 ── */}
             <div className="p-6 md:p-8 border-b border-border">
-              <label className="text-xs text-muted-foreground mb-4 block">
-                {billing === "volume" ? "产量档位" : "曝光档位"}
-              </label>
-
-              {/* 滑块 */}
-              <div className="relative mb-4">
-                <input
-                  type="range"
-                  min={0}
-                  max={tiers.length - 1}
-                  step={1}
-                  value={safeTierIndex}
-                  onChange={(e) => setTierIndex(Number(e.target.value))}
-                  className="w-full h-2 rounded-full appearance-none cursor-pointer
-                    bg-secondary
-                    [&::-webkit-slider-thumb]:appearance-none
-                    [&::-webkit-slider-thumb]:w-6
-                    [&::-webkit-slider-thumb]:h-6
-                    [&::-webkit-slider-thumb]:rounded-full
-                    [&::-webkit-slider-thumb]:bg-gradient-purple
-                    [&::-webkit-slider-thumb]:shadow-lg
-                    [&::-webkit-slider-thumb]:glow-purple
-                    [&::-webkit-slider-thumb]:border-2
-                    [&::-webkit-slider-thumb]:border-primary-foreground
-                    [&::-webkit-slider-thumb]:transition-transform
-                    [&::-webkit-slider-thumb]:hover:scale-125
-                    [&::-moz-range-thumb]:w-6
-                    [&::-moz-range-thumb]:h-6
-                    [&::-moz-range-thumb]:rounded-full
-                    [&::-moz-range-thumb]:bg-gradient-purple
-                    [&::-moz-range-thumb]:border-2
-                    [&::-moz-range-thumb]:border-primary-foreground
-                  "
-                  style={{
-                    background: `linear-gradient(to right, hsl(270 80% 60%) 0%, hsl(270 80% 60%) ${(safeTierIndex / (tiers.length - 1)) * 100}%, hsl(0 0% 12%) ${(safeTierIndex / (tiers.length - 1)) * 100}%, hsl(0 0% 12%) 100%)`,
-                  }}
-                />
-              </div>
-
-              {/* 档位标签 */}
-              <div className="flex justify-between">
-                {tiers.map((t, i) => (
-                  <button
-                    key={i}
-                    onClick={() => setTierIndex(i)}
-                    className={`text-xs transition-colors ${
-                      i === safeTierIndex
-                        ? "text-primary font-semibold"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    {t.label}
-                  </button>
-                ))}
-              </div>
+              {billing === "volume" ? (
+                <>
+                  <label className="text-xs text-muted-foreground mb-4 block">每月视频产量（条）</label>
+                  <div className="flex items-center gap-4">
+                    <input
+                      type="number"
+                      min={1}
+                      value={volumeQty}
+                      onChange={(e) => setVolumeQty(Math.max(1, Number(e.target.value) || 1))}
+                      className="w-40 bg-secondary border border-border rounded-xl px-4 py-3 text-2xl font-bold text-foreground text-center focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+                    />
+                    <span className="text-muted-foreground text-sm">条/月</span>
+                  </div>
+                  {/* 快捷档位按钮 */}
+                  <div className="flex flex-wrap gap-2 mt-4">
+                    {[1000, 5000, 10000, 30000, 50000, 100000].map((q) => (
+                      <button
+                        key={q}
+                        onClick={() => setVolumeQty(q)}
+                        className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
+                          volumeQty === q
+                            ? "bg-primary text-primary-foreground border-primary"
+                            : "bg-secondary border-border text-muted-foreground hover:border-primary/30"
+                        }`}
+                      >
+                        {q.toLocaleString()} 条
+                      </button>
+                    ))}
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-3">
+                    当前档位：<span className="text-primary font-medium">{estimate.tierLabel}</span>
+                    ，单价 <span className="text-primary font-medium">¥{getVolumeTier(Math.max(1, volumeQty)).price}/条</span>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <label className="text-xs text-muted-foreground mb-4 block">曝光档位</label>
+                  <div className="flex flex-wrap gap-2">
+                    {CPM_TIERS.map((t, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setCpmTierIndex(i)}
+                        className={`px-4 py-2.5 rounded-xl text-sm font-medium border transition-all ${
+                          i === safeCpmIndex
+                            ? "bg-primary text-primary-foreground border-primary shadow-md"
+                            : "bg-secondary border-border text-muted-foreground hover:border-primary/30"
+                        }`}
+                      >
+                        {t.label}（¥{t.cpm}/CPM）
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
 
             {/* ── 增值选项 ── */}
@@ -257,7 +255,7 @@ const PricingCalculator = () => {
             {/* ── 报价结果 ── */}
             <AnimatePresence mode="wait">
               <motion.div
-                key={`${billing}-${safeTierIndex}-${upgradeContent}-${ecommerce}`}
+                key={`${billing}-${volumeQty}-${safeCpmIndex}-${upgradeContent}-${ecommerce}`}
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
@@ -267,7 +265,7 @@ const PricingCalculator = () => {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                   <div>
                     <p className="text-xs text-muted-foreground mb-1">
-                      {regionLabel} · {billingLabel} · {tiers[safeTierIndex].label}
+                      {regionLabel} · {billingLabel} · {estimate.tierLabel}
                     </p>
                     <div className="flex items-baseline gap-2">
                       <span className="text-5xl font-bold text-gradient-purple">
