@@ -104,7 +104,7 @@ const PricingCalculator = () => {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           viewport={{ once: true }}
           transition={{ type: "spring", stiffness: 80, damping: 18 }}
-          className="max-w-4xl mx-auto"
+          className="w-full mx-auto"
         >
           <div className="bg-card rounded-3xl border border-border overflow-hidden">
             {/* ── 顶部控制栏 ── */}
