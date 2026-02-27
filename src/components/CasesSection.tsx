@@ -70,7 +70,8 @@ const CasesSection = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.1 }}
-              className="bg-card rounded-2xl p-8 border border-border"
+              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-4">
                 <span className="text-xl font-bold text-foreground">{c.brand}</span>

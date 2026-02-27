@@ -85,11 +85,12 @@ const PricingSection = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.08 }}
-              className={`rounded-2xl p-6 border relative ${
+              whileHover={{ scale: 1.04, transition: { type: "spring", stiffness: 300, damping: 20 } }}
+              className={`rounded-2xl p-6 border relative cursor-pointer ${
                 tier.highlight
                   ? "bg-card border-primary/40"
-                  : "bg-card border-border"
-              }`}
+                  : "bg-card border-border hover:border-primary/30"
+              } transition-colors`}
             >
               {tier.badge && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-purple text-xs text-primary-foreground font-medium">
