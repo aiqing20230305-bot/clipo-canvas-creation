@@ -220,7 +220,7 @@ const PricingCalculator = () => {
               <div className="flex flex-wrap gap-3">
                 <ToggleChip
                   icon={<Sparkles className="w-3.5 h-3.5" />}
-                  label="内容类型升级 (+10元/条)"
+                  label="内容升级：AI前贴3秒+混剪/数字人 (+10元/条)"
                   active={upgradeContent}
                   onClick={() => setUpgradeContent(!upgradeContent)}
                   disabled={billing === "cpm"}
@@ -312,7 +312,7 @@ const PricingCalculator = () => {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
           >
-            内容类型升级（AI前贴3秒+混剪、数字人视频）：对应基础报价上每条加10元。纯AI生产视频（国内/海外通用）：100–2,000元/条，按复杂度调整。
+            内容升级说明：在基础素材混剪基础上加入 AI 前贴片（3秒）及数字人视频，对应基础报价每条加10元。纯AI生产视频（国内/海外通用）：100–2,000元/条，按复杂度调整。
           </motion.p>
         </motion.div>
       </div>
