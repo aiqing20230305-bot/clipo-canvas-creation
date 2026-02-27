@@ -74,8 +74,13 @@ const CasesSection = () => {
               className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors cursor-pointer"
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-xl font-bold text-foreground">{c.brand}</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">{c.tag}</span>
+                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-bold text-lg shrink-0">
+                  {c.brand.charAt(0)}
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-xl font-bold text-foreground">{c.brand}</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">{c.tag}</span>
+                </div>
               </div>
               <h3 className="text-base font-medium text-foreground mb-5">{c.title}</h3>
               <div className="flex gap-8 mb-5">
