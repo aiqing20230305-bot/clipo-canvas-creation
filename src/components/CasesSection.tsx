@@ -73,20 +73,22 @@ const CasesSection = () => {
               whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
               className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors cursor-pointer"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-xl font-bold text-foreground">{c.brand}</span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">{c.tag}</span>
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-xl font-bold text-foreground">{c.brand}</span>
+                  <span className="text-xs px-2 py-0.5 rounded-full bg-secondary text-muted-foreground">{c.tag}</span>
+                </div>
+                <h3 className="text-sm font-medium text-muted-foreground">{c.title}</h3>
               </div>
-              <h3 className="text-base font-medium text-foreground mb-5">{c.title}</h3>
-              <div className="flex gap-8 mb-5">
+              <div className="flex gap-6 mb-6 py-5 px-4 rounded-xl bg-secondary/50 border border-border/50">
                 {c.stats.map((s) => (
-                  <div key={s.label}>
-                    <p className="text-2xl font-bold text-gradient-purple">{s.value}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{s.label}</p>
+                  <div key={s.label} className="flex-1 text-center">
+                    <p className="text-3xl font-bold text-gradient-purple mb-1">{s.value}</p>
+                    <p className="text-xs text-muted-foreground">{s.label}</p>
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground">{c.description}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{c.description}</p>
             </motion.div>
           ))}
         </div>
