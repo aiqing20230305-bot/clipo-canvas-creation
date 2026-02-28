@@ -1,4 +1,52 @@
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+
+/**
+ * Parse a stat value like "1000+", "14.3w+", "2.03↑", "130条/周"
+ * Returns { num, prefix, suffix } where num is the animatable number.
+ */
+function parseStat(value: string) {
+  const match = value.match(/^([^\d]*?)([\d.]+)(.*)$/);
+  if (!match) return null;
+  return { prefix: match[1], num: parseFloat(match[2]), suffix: match[3] };
+}
+
+function formatNum(n: number, decimals: number) {
+  return decimals > 0 ? n.toFixed(decimals) : Math.round(n).toString();
+}
+
+const AnimatedStat = ({ value }: { value: string }) => {
+  const ref = useRef<HTMLParagraphElement>(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const [display, setDisplay] = useState(value);
+  const parsed = parseStat(value);
+
+  useEffect(() => {
+    if (!isInView || !parsed) return;
+    const { prefix, num, suffix } = parsed;
+    const decimals = (value.match(/\.(\d+)/) || [])[1]?.length || 0;
+    const duration = 1200;
+    const startTime = performance.now();
+
+    const animate = (now: number) => {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = eased * num;
+      setDisplay(`${prefix}${formatNum(current, decimals)}${suffix}`);
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+
+    requestAnimationFrame(animate);
+  }, [isInView]);
+
+  return (
+    <p ref={ref} className="text-3xl font-bold text-gradient-purple mb-1">
+      {display}
+    </p>
+  );
+};
 
 const cases = [
   {
@@ -83,7 +131,7 @@ const CasesSection = () => {
               <div className="flex gap-6 mb-6 py-5 px-4 rounded-xl bg-secondary/50 border border-border/50">
                 {c.stats.map((s) => (
                   <div key={s.label} className="flex-1 text-center">
-                    <p className="text-3xl font-bold text-gradient-purple mb-1">{s.value}</p>
+                    <AnimatedStat value={s.value} />
                     <p className="text-xs text-muted-foreground">{s.label}</p>
                   </div>
                 ))}
