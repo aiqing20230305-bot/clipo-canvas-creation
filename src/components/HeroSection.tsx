@@ -84,8 +84,22 @@ const RevealLine = ({ children, delay = 0, className = "" }: { children: React.R
 const HeroSection = () => {
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+      {/* Background video */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          style={{ opacity: 0.15 }}
+        >
+          <source src="/videos/hero-bg.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+      </div>
+
       {/* Ambient grid lines */}
-      <div className="absolute inset-0 pointer-events-none" style={{
+      <div className="absolute inset-0 pointer-events-none z-[1]" style={{
         backgroundImage: `
           linear-gradient(hsl(265 85% 65% / 0.03) 1px, transparent 1px),
           linear-gradient(90deg, hsl(265 85% 65% / 0.03) 1px, transparent 1px)
