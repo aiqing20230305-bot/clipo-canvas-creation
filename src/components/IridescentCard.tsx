@@ -47,7 +47,7 @@ const IridescentCard = ({
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className={cn(
-        "relative overflow-hidden rounded-2xl border border-border bg-card transition-colors",
+        "relative overflow-hidden rounded-lg border border-primary/10 bg-card/80 backdrop-blur-sm transition-colors",
         className
       )}
       {...props}
