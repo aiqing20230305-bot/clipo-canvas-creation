@@ -60,12 +60,6 @@
     letter-spacing: -0.01em;
   }
 
-  /* Hide default cursor on desktop when custom cursor is active */
-  @media (pointer: fine) {
-    *, *::before, *::after {
-      cursor: none !important;
-    }
-  }
 }
 
 @layer utilities {
