@@ -57,7 +57,7 @@ const HeroSection = () => {
           >
             从素材混剪到纯 AI 生成，<span className="text-foreground">一套引擎取代整支团队</span>。
             <br className="hidden md:block" />
-            ROI 最高提升 4.76×，周产 500+ 条。
+            ROI 最高提升 4.76%，周产上万条内容。
           </motion.p>
 
           <motion.div
