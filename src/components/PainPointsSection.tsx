@@ -1,7 +1,6 @@
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Layers, Zap, Scale, ChevronDown } from "lucide-react";
-import { useState } from "react";
-import IridescentCard from "./IridescentCard";
+import { useState, useRef, useCallback } from "react";
 
 const painPoints = [
   {
@@ -27,14 +26,58 @@ const painPoints = [
   },
 ];
 
+/* ── Spotlight hover card ── */
+const SpotlightPainCard = ({ children, onClick }: { children: React.ReactNode; onClick: () => void }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const rawOpacity = useMotionValue(0);
+  const opacity = useSpring(rawOpacity, { stiffness: 200, damping: 25 });
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    mouseX.set(e.clientX - rect.left);
+    mouseY.set(e.clientY - rect.top);
+  }, [mouseX, mouseY]);
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => rawOpacity.set(1)}
+      onMouseLeave={() => rawOpacity.set(0)}
+      onClick={onClick}
+      className="relative bg-card p-10 group cursor-pointer select-none overflow-hidden"
+      data-cursor="expand"
+      whileHover={{ backgroundColor: "hsl(240 4% 9%)" }}
+      transition={{ duration: 0.4 }}
+    >
+      {/* Spotlight glow */}
+      <motion.div
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          opacity,
+          background: useTransform(
+            [mouseX, mouseY],
+            ([x, y]) =>
+              `radial-gradient(400px circle at ${x}px ${y}px, hsl(265 85% 60% / 0.08), transparent 60%)`
+          ),
+        }}
+      />
+      <div className="relative z-10">{children}</div>
+    </motion.div>
+  );
+};
+
 const PainPointsSection = () => {
   const [expanded, setExpanded] = useState<number | null>(null);
 
   return (
-    <section className="py-16">
+    <section className="py-20">
       <div className="container mx-auto px-6">
         <motion.div
-          className="mb-10"
+          className="mb-12"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -58,50 +101,54 @@ const PainPointsSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-card p-10 group hover:bg-secondary/50 transition-colors duration-500 cursor-pointer select-none"
-                data-cursor="expand"
-                onClick={() => setExpanded(isOpen ? null : i)}
               >
-                <div className="flex items-center justify-between mb-8">
-                  <point.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
-                  <motion.div
-                    animate={{ rotate: isOpen ? 180 : 0 }}
-                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                  >
-                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
-                  </motion.div>
-                </div>
-                <h3 className="font-display text-lg font-semibold text-foreground mb-2">{point.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed mb-0">
-                  {isOpen ? point.description : point.summary}
-                </p>
-
-                <AnimatePresence>
-                  {isOpen && (
+                <SpotlightPainCard onClick={() => setExpanded(isOpen ? null : i)}>
+                  <div className="flex items-center justify-between mb-8">
                     <motion.div
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      className="overflow-hidden"
+                      className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center"
+                      whileHover={{ scale: 1.1, backgroundColor: "hsl(265 85% 65% / 0.2)" }}
                     >
-                      <div className="pt-5 mt-5 border-t border-border/50 space-y-2">
-                        {point.details.map((d, idx) => (
-                          <motion.p
-                            key={idx}
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: idx * 0.08, duration: 0.3 }}
-                            className="text-sm text-muted-foreground flex items-center gap-2"
-                          >
-                            <span className="w-1 h-1 rounded-full bg-primary/60 shrink-0" />
-                            {d}
-                          </motion.p>
-                        ))}
-                      </div>
+                      <point.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
                     </motion.div>
-                  )}
-                </AnimatePresence>
+                    <motion.div
+                      animate={{ rotate: isOpen ? 180 : 0 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    >
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                    </motion.div>
+                  </div>
+                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">{point.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-0">
+                    {isOpen ? point.description : point.summary}
+                  </p>
+
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-5 mt-5 border-t border-border/50 space-y-2">
+                          {point.details.map((d, idx) => (
+                            <motion.p
+                              key={idx}
+                              initial={{ opacity: 0, x: -10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: idx * 0.08, duration: 0.3 }}
+                              className="text-sm text-muted-foreground flex items-center gap-2"
+                            >
+                              <span className="w-1 h-1 rounded-full bg-primary/60 shrink-0" />
+                              {d}
+                            </motion.p>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </SpotlightPainCard>
               </motion.div>
             );
           })}

@@ -1,6 +1,7 @@
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { DouyinIcon, KuaishouIcon, XiaohongshuIcon, ShipinHaoIcon, BilibiliIcon, TikTokIcon, InstagramIcon, YouTubeIcon, FacebookIcon, XTwitterIcon } from "./PlatformIcons";
 import { ReactNode, useRef, useState, useCallback } from "react";
+import FloatingOrb from "./FloatingOrb";
 
 const platforms: { name: string; icon: ReactNode }[] = [
   { name: "抖音", icon: <DouyinIcon /> },
@@ -52,7 +53,6 @@ const PlatformBadge = ({ icon, name, index }: { icon: ReactNode; name: string; i
       whileHover={{ scale: 1.12 }}
       transition={{ type: "spring", stiffness: 400, damping: 17 }}
     >
-      {/* Glow ring */}
       <motion.span
         className="absolute inset-0 rounded-full pointer-events-none"
         style={{
@@ -67,39 +67,23 @@ const PlatformBadge = ({ icon, name, index }: { icon: ReactNode; name: string; i
   );
 };
 
-/* ── Parallax Title ── */
-const ParallaxTitle = ({ children, className, depth = 1 }: { children: React.ReactNode; className?: string; depth?: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 80, damping: 30 });
-  const springY = useSpring(y, { stiffness: 80, damping: 30 });
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
-    x.set(px * 12 * depth);
-    y.set(py * 8 * depth);
-  }, [x, y, depth]);
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => { x.set(0); y.set(0); }}
-      style={{ x: springX, y: springY }}
-      className={className}
+/* ── Staggered text reveal line ── */
+const RevealLine = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => (
+  <span className={`block overflow-hidden ${className}`}>
+    <motion.span
+      className="block"
+      initial={{ y: "110%", rotateX: -30 }}
+      animate={{ y: "0%", rotateX: 0 }}
+      transition={{ duration: 1.2, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
-    </motion.div>
-  );
-};
+    </motion.span>
+  </span>
+);
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-[80vh] flex items-end pb-16 pt-24 overflow-hidden">
+    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Ambient grid lines */}
       <div className="absolute inset-0 pointer-events-none" style={{
         backgroundImage: `
@@ -108,6 +92,9 @@ const HeroSection = () => {
         `,
         backgroundSize: '80px 80px',
       }} />
+
+      {/* Floating morphing orb — right side */}
+      <FloatingOrb />
 
       <div className="container mx-auto px-6 relative z-10">
         <motion.div
@@ -125,22 +112,12 @@ const HeroSection = () => {
             Content Production · Operations · Distribution
           </motion.p>
 
-          <ParallaxTitle depth={1}>
-            <h1 className="font-display text-5xl md:text-8xl font-bold leading-[0.95] mb-8">
-              <motion.span
-                className="text-foreground block"
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              >
-                懂内容，更懂平台
-              </motion.span>
-              <motion.span
-                className="text-gradient-purple block mt-2 relative"
-                initial={{ opacity: 0, y: 60 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
+          <h1 className="font-display text-5xl md:text-8xl font-bold leading-[0.95] mb-8" style={{ perspective: "600px" }}>
+            <RevealLine delay={0.3}>
+              <span className="text-foreground">懂内容，更懂平台</span>
+            </RevealLine>
+            <RevealLine delay={0.5} className="mt-2">
+              <span className="text-gradient-purple relative">
                 AI驱动全域增长
                 <motion.span
                   className="absolute inset-0 bg-clip-text text-transparent pointer-events-none"
@@ -155,14 +132,14 @@ const HeroSection = () => {
                 >
                   AI驱动全域增长
                 </motion.span>
-              </motion.span>
-            </h1>
-          </ParallaxTitle>
+              </span>
+            </RevealLine>
+          </h1>
 
           <motion.p
             className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             深耕<span className="text-foreground">内容生产 × 运营策略 × 社媒平台规则</span>，

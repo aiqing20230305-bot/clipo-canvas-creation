@@ -176,3 +176,9 @@
   background: hsl(240 4% 20%);
   border-radius: 2px;
 }
+
+/* Selection highlight */
+::selection {
+  background: hsl(265 85% 65% / 0.3);
+  color: hsl(0 0% 96%);
+}
