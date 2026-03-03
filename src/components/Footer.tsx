@@ -12,9 +12,6 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground">
               联系我们：clipo.support@tezign.com
             </p>
-            <p className="text-sm text-muted-foreground">
-              联系我们：clipo.support@tezign.com
-            </p>
           </div>
           <div className="flex gap-8">
             <div>
