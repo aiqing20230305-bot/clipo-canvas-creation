@@ -8,13 +8,13 @@ import PricingCalculator from "@/components/PricingCalculator";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import AuroraBackground from "@/components/AuroraBackground";
-import CursorGlow from "@/components/CursorGlow";
+
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <AuroraBackground />
-      <CursorGlow />
+      
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
