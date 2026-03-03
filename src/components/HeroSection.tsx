@@ -91,7 +91,7 @@ const HeroSection = () => {
           muted
           playsInline
           className="w-full h-full object-cover"
-          style={{ opacity: 0.15 }}
+          style={{ opacity: 0.5 }}
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
