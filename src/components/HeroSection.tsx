@@ -105,7 +105,7 @@ const HeroSection = () => {
 
           <h1 className="font-display text-5xl md:text-8xl font-bold leading-[0.95] mb-8" style={{ perspective: "600px" }}>
             <RevealLine delay={0.3}>
-              <span className="text-foreground">懂内容，更懂平台</span>
+              <span className="text-foreground">通往新世界</span>
             </RevealLine>
             <RevealLine delay={0.5} className="mt-2">
               <span className="text-gradient-purple relative">
@@ -133,7 +133,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            深耕<span className="text-foreground">内容生产 × 运营策略 × 社媒平台规则</span>，
+            深耕<span className="text-foreground">内容生产 × 运营策略 × 平台规则</span>，
             <br className="hidden md:block" />
             从素材混剪到纯AI生成，一套引擎覆盖全平台。
             <br className="hidden md:block" />
