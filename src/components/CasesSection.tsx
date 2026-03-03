@@ -62,7 +62,7 @@ const cases = [
     description: "结合线下促销，精准触达消费群体。",
   },
   {
-    brand: "爱玛",
+    brand: "某知名电动车品牌",
     tag: "电动车",
     title: "线下门店赋能",
     stats: [
