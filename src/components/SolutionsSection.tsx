@@ -6,33 +6,33 @@ const solutions = [
     number: "01",
     icon: Film,
     title: "素材混剪引擎",
-    subtitle: "一条TVC裂变出1000条投放素材",
+    subtitle: "深度理解平台内容规则，一条TVC裂变千条投放素材",
     details: [
-      "AI拆解脚本逻辑，自动重组镜头顺序与节奏",
-      "存量素材持续产出新内容，不再一次性消耗",
-      "抖音/快手/TikTok矩阵铺量，日产百条起步",
+      "AI拆解脚本逻辑，按各平台调性自动重组镜头与节奏",
+      "存量素材持续产出新内容，适配抖音/快手/小红书/TikTok等平台规范",
+      "基于平台算法特征优化内容结构，提升自然推荐率",
     ],
   },
   {
     number: "02",
     icon: Bot,
     title: "AI前贴 & 数字人",
-    subtitle: "黄金3秒锁住用户，划走率直降40%",
+    subtitle: "结合运营数据，黄金3秒锁住用户",
     details: [
-      "AI生成视觉炸裂的片头，第一帧就抓住注意力",
-      "数字人口播替代真人，成本降低80%",
-      "7×24小时产出，不请假、不NG、不加钱",
+      "AI生成高完播率片头，第一帧就抓住注意力",
+      "数字人口播替代真人，匹配不同平台的用户偏好",
+      "A/B测试驱动迭代，持续优化内容表现",
     ],
   },
   {
     number: "03",
     icon: Sparkles,
     title: "纯AI视频生成",
-    subtitle: "没素材？AI从零造出大片级视频",
+    subtitle: "从内容策略到成片，全链路AI交付",
     details: [
-      "Sora/Runway级文生视频，创意不再受拍摄限制",
-      "品牌故事、产品演示、概念广告一键生成",
-      "从brief到成片，最快30分钟交付",
+      "Sora/Runway级文生视频，品牌故事、产品演示一键生成",
+      "内置各平台内容合规审核，发布即合规",
+      "从brief到成片最快30分钟，支持多语言本地化输出",
     ],
   },
 ];
@@ -50,9 +50,9 @@ const SolutionsSection = () => {
         >
           <p className="text-xs text-muted-foreground tracking-[0.3em] uppercase mb-4">Solutions</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
-            三层火箭
+            AI × 内容运营
             <br />
-            <span className="text-gradient-purple">把内容产能拉满</span>
+            <span className="text-gradient-purple">三层引擎拉满全域产能</span>
           </h2>
         </motion.div>
 
