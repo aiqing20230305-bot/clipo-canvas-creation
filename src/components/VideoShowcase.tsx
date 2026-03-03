@@ -6,6 +6,9 @@ const videos = [
   { src: "/videos/lishi.mp4", title: "力士 · 品牌混剪" },
   { src: "/videos/qc-showcase.mp4", title: "品牌 · 创意混剪" },
   { src: "/videos/march4-showcase.mp4", title: "创意 · 混剪作品" },
+  { src: "/videos/03-1.mp4", title: "品牌 · 视觉混剪" },
+  { src: "/videos/march4-v2.mp4", title: "创意 · 风格混剪" },
+  { src: "/videos/march4-v3.mp4", title: "品牌 · 精选混剪" },
 ];
 
 const VideoCard = ({ src, title, index }: { src: string; title: string; index: number }) => {
@@ -82,7 +85,7 @@ const VideoShowcase = () => {
           <p className="text-muted-foreground text-lg">AI 驱动的纯混剪作品，高效产出优质内容</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {videos.map((v, i) => (
             <VideoCard key={v.src} src={v.src} title={v.title} index={i} />
           ))}
