@@ -83,11 +83,11 @@ const PricingCalculator = () => {
   const billingLabel = billing === "volume" ? "按条计费" : "按曝光计费";
 
   return (
-    <section id="pricing" className="py-32">
+    <section id="pricing" className="py-16">
       <div className="container mx-auto px-6">
         {/* 标题 */}
         <motion.div
-          className="mb-20"
+          className="mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

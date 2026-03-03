@@ -2,7 +2,7 @@ import clipoLogo from "@/assets/clipo-logo.webp";
 
 const Footer = () => {
   return (
-    <footer className="py-16 border-t border-border/50">
+    <footer className="py-10 border-t border-border/50">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
           <div>

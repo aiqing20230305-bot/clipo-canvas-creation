@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const CTASection = () => {
   return (
-    <section className="py-32">
+    <section className="py-16">
       <div className="container mx-auto px-6">
         <motion.div
           className="relative overflow-hidden rounded-3xl bg-card border border-border/50 p-12 md:p-20 text-center"
