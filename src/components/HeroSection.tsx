@@ -1,5 +1,21 @@
 import { motion } from "framer-motion";
 
+const platforms = [
+  { name: "抖音", icon: "📱" },
+  { name: "快手", icon: "⚡" },
+  { name: "小红书", icon: "📕" },
+  { name: "视频号", icon: "📺" },
+  { name: "B站", icon: "🎮" },
+  { name: "TikTok", icon: "🎵" },
+  { name: "Instagram", icon: "📷" },
+  { name: "YouTube", icon: "▶️" },
+  { name: "Facebook", icon: "🌐" },
+  { name: "X / Twitter", icon: "✖️" },
+];
+
+// Duplicate for seamless loop
+const doubledPlatforms = [...platforms, ...platforms];
+
 const HeroSection = () => {
   return (
     <section className="relative min-h-[80vh] flex items-end pb-16 pt-24">
@@ -16,7 +32,7 @@ const HeroSection = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            AI-Powered Content Engine
+            Content Production · Operations · Distribution
           </motion.p>
 
           <h1 className="font-display text-5xl md:text-8xl font-bold leading-[0.95] mb-8">
@@ -26,7 +42,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
-              别人还在剪片
+              懂内容，更懂平台
             </motion.span>
             <motion.span
               className="text-gradient-purple block mt-2 relative"
@@ -34,7 +50,7 @@ const HeroSection = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              你已经日产千条
+              AI驱动全域增长
               <span
                 className="absolute inset-0 bg-clip-text text-transparent animate-shimmer pointer-events-none"
                 style={{
@@ -44,18 +60,20 @@ const HeroSection = () => {
                 }}
                 aria-hidden="true"
               >
-                你已经日产千条
+                AI驱动全域增长
               </span>
             </motion.span>
           </h1>
 
           <motion.p
-            className="text-base md:text-lg text-muted-foreground mb-12 max-w-lg leading-relaxed"
+            className="text-base md:text-lg text-muted-foreground mb-10 max-w-xl leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            从素材混剪到纯 AI 生成，<span className="text-foreground">一套引擎取代整支团队</span>。
+            深耕<span className="text-foreground">内容生产 × 运营策略 × 社媒平台规则</span>，
+            <br className="hidden md:block" />
+            从素材混剪到纯AI生成，一套引擎覆盖全平台。
             <br className="hidden md:block" />
             ROI 最高提升 4.76%，周产上万条内容。
           </motion.p>
@@ -88,6 +106,35 @@ const HeroSection = () => {
             >
               查看报价
             </a>
+          </motion.div>
+
+          {/* Platform logo ticker */}
+          <motion.div
+            className="mt-14 overflow-hidden"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.3 }}
+          >
+            <p className="text-[10px] text-muted-foreground/50 tracking-[0.2em] uppercase mb-4">
+              覆盖全球主流内容平台
+            </p>
+            <div className="relative">
+              {/* Fade edges */}
+              <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+              <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+
+              <div className="flex animate-marquee gap-6">
+                {doubledPlatforms.map((p, i) => (
+                  <div
+                    key={`${p.name}-${i}`}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 bg-card/50 backdrop-blur-sm shrink-0 hover:border-primary/30 transition-colors duration-300"
+                  >
+                    <span className="text-sm">{p.icon}</span>
+                    <span className="text-xs text-foreground/60 whitespace-nowrap">{p.name}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </motion.div>
         </motion.div>
       </div>

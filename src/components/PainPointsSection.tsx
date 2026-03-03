@@ -5,17 +5,17 @@ const painPoints = [
   {
     icon: Layers,
     title: "素材拍完即废",
-    description: "花大价钱拍的TVC，发完就躺进硬盘。百万级素材资产正在贬值。",
+    description: "花大价钱拍的TVC，发完就躺进硬盘。缺乏内容运营思维，百万级素材资产正在贬值。",
   },
   {
     icon: Zap,
-    title: "产能跟不上算法",
-    description: "平台要日更、要矩阵、要千人千面。靠人剪？竞品已经日产百条碾压你的流量。",
+    title: "产能跟不上平台节奏",
+    description: "抖音要日更、快手要矩阵、小红书要种草、TikTok要本地化。每个平台规则不同，靠人剪根本跟不上。",
   },
   {
     icon: Scale,
-    title: "合规与流量的悖论",
-    description: "想要爆量就踩线，想要合规就没量。ROI始终上不去。",
+    title: "不懂平台就没有流量",
+    description: "内容好不等于有量。不了解各平台推荐算法、内容合规和运营节奏，再好的素材也是白费。",
   },
 ];
 
@@ -32,9 +32,9 @@ const PainPointsSection = () => {
         >
           <p className="text-xs text-muted-foreground tracking-[0.3em] uppercase mb-4">Pain Points</p>
           <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
-            你的内容团队
+            没有内容运营能力
             <br />
-            <span className="text-muted-foreground">正在被算法淘汰</span>
+            <span className="text-muted-foreground">再好的AI也是空转</span>
           </h2>
         </motion.div>
 
