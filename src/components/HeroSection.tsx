@@ -65,7 +65,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
       {/* Background video */}
       <div className="absolute inset-0 z-0">
         <video
