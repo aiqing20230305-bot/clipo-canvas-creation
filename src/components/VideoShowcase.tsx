@@ -28,12 +28,13 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
       viewport={{ once: true }}
       transition={{ type: "spring", stiffness: 80, damping: 18, delay: index * 0.15 }}
       className="relative group cursor-pointer rounded-2xl overflow-hidden iridescent-border bg-card"
+      style={{ aspectRatio: "9 / 16" }}
       onClick={toggle}
     >
       <video
         ref={videoRef}
         src={src}
-        className="w-full aspect-[9/16] object-cover"
+        className="absolute inset-0 w-full h-full object-cover"
         loop
         muted
         playsInline
@@ -81,7 +82,7 @@ const VideoShowcase = () => {
           <p className="text-muted-foreground text-lg">AI 驱动的纯混剪作品，高效产出优质内容</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 gap-6 max-w-xl mx-auto">
           {videos.map((v, i) => (
             <VideoCard key={v.src} src={v.src} title={v.title} index={i} />
           ))}
