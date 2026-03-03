@@ -9,6 +9,9 @@ const videos = [
   { src: "/videos/03-1.mp4", title: "品牌 · 视觉混剪" },
   { src: "/videos/march4-v2.mp4", title: "创意 · 风格混剪" },
   { src: "/videos/march4-v3.mp4", title: "品牌 · 精选混剪" },
+  { src: "/videos/march4-v4.mp4", title: "创意 · 动感混剪" },
+  { src: "/videos/march4-v5.mp4", title: "品牌 · 质感混剪" },
+  { src: "/videos/march4-v6.mp4", title: "创意 · 灵感混剪" },
 ];
 
 const VideoCard = ({ src, title, index }: { src: string; title: string; index: number }) => {
