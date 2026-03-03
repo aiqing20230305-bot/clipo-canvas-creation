@@ -73,7 +73,7 @@ const cases = [
     description: "结合电动车新国标政策科普，植入车型卖点。",
   },
   {
-    brand: "AHC",
+    brand: "某知名美妆品牌",
     tag: "美妆",
     title: "ROI 稳定增长",
     stats: [
