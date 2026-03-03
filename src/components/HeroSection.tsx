@@ -26,7 +26,7 @@ const HeroSection = () => {
               </span>
             </span>
             <br />
-            <span className="text-foreground">与增长解决方案</span>
+            <span className="text-foreground">内容增长解决方案</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl">
             驱动生意的规模化内容引擎：从素材混剪 到 纯AI生成
