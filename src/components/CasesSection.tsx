@@ -51,7 +51,7 @@ const AnimatedStat = ({ value }: { value: string }) => {
 
 const cases = [
   {
-    brand: "999°",
+    brand: "某知名医药品牌",
     tag: "品牌",
     title: "引流线下门店",
     stats: [
