@@ -16,56 +16,22 @@ const platforms: { name: string; icon: ReactNode }[] = [
   { name: "X / Twitter", icon: <XTwitterIcon /> },
 ];
 
-const doubledPlatforms = [...platforms, ...platforms];
+/* Constellation positions for artistic scatter layout */
+const constellationPositions = [
+  { x: "0%", y: "0%", scale: 1, delay: 0 },
+  { x: "22%", y: "-12%", scale: 0.9, delay: 0.06 },
+  { x: "48%", y: "5%", scale: 1.05, delay: 0.12 },
+  { x: "70%", y: "-8%", scale: 0.85, delay: 0.18 },
+  { x: "88%", y: "10%", scale: 0.95, delay: 0.24 },
+  { x: "5%", y: "55%", scale: 0.88, delay: 0.3 },
+  { x: "28%", y: "48%", scale: 1.1, delay: 0.36 },
+  { x: "52%", y: "58%", scale: 0.92, delay: 0.42 },
+  { x: "75%", y: "45%", scale: 1, delay: 0.48 },
+  { x: "95%", y: "55%", scale: 0.87, delay: 0.54 },
+];
 
-/* ── Magnetic Platform Badge ── */
-const PlatformBadge = ({ icon, name, index }: { icon: ReactNode; name: string; index: number }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [hovered, setHovered] = useState(false);
 
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 300, damping: 20 });
-  const springY = useSpring(y, { stiffness: 300, damping: 20 });
-  const glow = useSpring(0, { stiffness: 200, damping: 25 });
-  const glowOpacity = useTransform(glow, [0, 1], [0, 0.6]);
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-    x.set((e.clientX - cx) * 0.35);
-    y.set((e.clientY - cy) * 0.35);
-  }, [x, y]);
-
-  const handleEnter = () => { setHovered(true); glow.set(1); };
-  const handleLeave = () => { setHovered(false); x.set(0); y.set(0); glow.set(0); };
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleEnter}
-      onMouseLeave={handleLeave}
-      style={{ x: springX, y: springY }}
-      className="relative flex items-center gap-3 px-5 py-3 rounded-full border border-border/40 bg-card/50 backdrop-blur-sm shrink-0 cursor-default group select-none"
-      whileHover={{ scale: 1.12 }}
-      transition={{ type: "spring", stiffness: 400, damping: 17 }}
-    >
-      <motion.span
-        className="absolute inset-0 rounded-full pointer-events-none"
-        style={{
-          opacity: glowOpacity,
-          boxShadow: `0 0 20px hsl(265 85% 65% / 0.4), inset 0 0 12px hsl(265 85% 65% / 0.15)`,
-          border: '1px solid hsl(265 85% 65% / 0.35)',
-        }}
-      />
-      <span className="text-foreground/70 group-hover:text-primary transition-colors duration-300 [&>svg]:w-5 [&>svg]:h-5 relative z-10">{icon}</span>
-      <span className="text-sm text-foreground/60 group-hover:text-foreground whitespace-nowrap transition-colors duration-300 relative z-10">{name}</span>
-    </motion.div>
-  );
-};
 
 /* ── Staggered text reveal line ── */
 const RevealLine = ({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) => (
@@ -211,25 +177,68 @@ const HeroSection = () => {
             </motion.a>
           </motion.div>
 
-          {/* Platform logo ticker */}
+          {/* Platform constellation */}
           <motion.div
-            className="mt-14 overflow-hidden"
+            className="mt-16"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.3 }}
           >
-            <p className="text-[10px] text-muted-foreground/50 tracking-[0.2em] uppercase mb-4">
+            <p className="text-[10px] text-muted-foreground/50 tracking-[0.2em] uppercase mb-6">
               覆盖全球主流内容平台
             </p>
-            <div className="relative">
-              <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
-              <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+            <div className="relative h-[120px] w-full max-w-2xl">
+              {platforms.map((p, i) => {
+                const pos = constellationPositions[i];
+                return (
+                  <motion.div
+                    key={p.name}
+                    className="absolute"
+                    style={{ left: pos.x, top: pos.y }}
+                    initial={{ opacity: 0, scale: 0.5, filter: "blur(8px)" }}
+                    animate={{ opacity: 1, scale: pos.scale, filter: "blur(0px)" }}
+                    transition={{
+                      duration: 0.8,
+                      delay: 1.4 + pos.delay,
+                      ease: [0.16, 1, 0.3, 1],
+                    }}
+                  >
+                    <motion.div
+                      className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/30 bg-card/40 backdrop-blur-sm cursor-default group"
+                      whileHover={{
+                        scale: 1.15,
+                        borderColor: "hsl(265 85% 65% / 0.5)",
+                        boxShadow: "0 0 20px hsl(265 85% 65% / 0.25)",
+                      }}
+                      transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                      animate={{
+                        y: [0, i % 2 === 0 ? -4 : 4, 0],
+                      }}
+                      // @ts-ignore
+                      transition={{
+                        y: { duration: 3 + i * 0.3, repeat: Infinity, ease: "easeInOut" },
+                        scale: { type: "spring", stiffness: 400, damping: 17 },
+                      }}
+                    >
+                      <span className="text-foreground/60 group-hover:text-primary transition-colors duration-300 [&>svg]:w-4 [&>svg]:h-4">
+                        {p.icon}
+                      </span>
+                      <span className="text-xs text-foreground/50 group-hover:text-foreground whitespace-nowrap transition-colors duration-300">
+                        {p.name}
+                      </span>
+                    </motion.div>
+                  </motion.div>
+                );
+              })}
 
-              <div className="flex animate-marquee gap-8 w-max">
-                {doubledPlatforms.map((p, i) => (
-                  <PlatformBadge key={`${p.name}-${i}`} icon={p.icon} name={p.name} index={i} />
-                ))}
-              </div>
+              {/* Connecting lines between some nodes */}
+              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.08 }}>
+                <motion.line x1="8%" y1="15%" x2="25%" y2="8%" stroke="hsl(265 85% 65%)" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 2 }} />
+                <motion.line x1="25%" y1="8%" x2="52%" y2="20%" stroke="hsl(265 85% 65%)" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 2.2 }} />
+                <motion.line x1="52%" y1="20%" x2="73%" y2="10%" stroke="hsl(265 85% 65%)" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 2.4 }} />
+                <motion.line x1="10%" y1="70%" x2="32%" y2="62%" stroke="hsl(185 90% 50%)" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 2.6 }} />
+                <motion.line x1="32%" y1="62%" x2="56%" y2="72%" stroke="hsl(185 90% 50%)" strokeWidth="1" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 1.5, delay: 2.8 }} />
+              </svg>
             </div>
           </motion.div>
         </motion.div>
