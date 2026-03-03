@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
-import { Film, Bot, Sparkles } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Film, Bot, Sparkles, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 const solutions = [
   {
@@ -38,6 +39,8 @@ const solutions = [
 ];
 
 const SolutionsSection = () => {
+  const [expanded, setExpanded] = useState<number | null>(0);
+
   return (
     <section id="solutions" className="py-16">
       <div className="container mx-auto px-6">
@@ -57,42 +60,92 @@ const SolutionsSection = () => {
         </motion.div>
 
         <div className="space-y-1">
-          {solutions.map((sol, i) => (
-            <motion.div
-              key={sol.number}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="group"
-            >
-              <div className="bg-card rounded-2xl p-8 md:p-10 hover:bg-secondary/50 transition-colors duration-500 border border-border/50">
-                <div className="flex flex-col md:flex-row md:items-start gap-6 md:gap-12">
-                  {/* Left: number + icon */}
-                  <div className="flex items-center gap-4 md:w-48 shrink-0">
-                    <span className="font-display text-4xl font-bold text-foreground/10">{sol.number}</span>
-                    <div className="w-10 h-10 rounded-xl bg-gradient-purple flex items-center justify-center">
-                      <sol.icon className="w-5 h-5 text-primary-foreground" />
+          {solutions.map((sol, i) => {
+            const isOpen = expanded === i;
+            return (
+              <motion.div
+                key={sol.number}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
+                className="group"
+              >
+                <motion.div
+                  className="bg-card rounded-2xl border border-border/50 overflow-hidden cursor-pointer select-none"
+                  data-cursor="expand"
+                  onClick={() => setExpanded(isOpen ? null : i)}
+                  whileHover={{ backgroundColor: "hsl(240 4% 9%)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="p-8 md:p-10">
+                    <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
+                      {/* Left: number + icon */}
+                      <div className="flex items-center gap-4 md:w-48 shrink-0">
+                        <span className="font-display text-4xl font-bold text-foreground/10">{sol.number}</span>
+                        <motion.div
+                          className="w-10 h-10 rounded-xl bg-gradient-purple flex items-center justify-center"
+                          animate={{ rotate: isOpen ? 90 : 0, scale: isOpen ? 1.1 : 1 }}
+                          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                        >
+                          <sol.icon className="w-5 h-5 text-primary-foreground" />
+                        </motion.div>
+                      </div>
+
+                      {/* Middle: title + subtitle */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-display text-xl font-bold text-foreground mb-1">{sol.title}</h3>
+                        <p className="text-sm text-primary">{sol.subtitle}</p>
+                      </div>
+
+                      {/* Right: expand indicator */}
+                      <motion.div
+                        animate={{ rotate: isOpen ? 90 : 0 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                        className="hidden md:block"
+                      >
+                        <ChevronRight className="w-5 h-5 text-muted-foreground" />
+                      </motion.div>
                     </div>
                   </div>
 
-                  {/* Middle: title + subtitle */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-xl font-bold text-foreground mb-1">{sol.title}</h3>
-                    <p className="text-sm text-primary mb-4">{sol.subtitle}</p>
-                    <div className="flex flex-wrap gap-x-6 gap-y-2">
-                      {sol.details.map((d, idx) => (
-                        <p key={idx} className="text-sm text-muted-foreground flex items-start gap-2 leading-relaxed">
-                          <span className="text-primary/60 mt-0.5 shrink-0">—</span>
-                          {d}
-                        </p>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+                  {/* Expandable details */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ type: "spring", stiffness: 250, damping: 30 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="px-8 md:px-10 pb-8 md:pb-10 pt-0">
+                          <div className="border-t border-border/50 pt-6 md:pl-[calc(theme(spacing.48)+theme(spacing.12))]">
+                            <div className="grid md:grid-cols-3 gap-4">
+                              {sol.details.map((d, idx) => (
+                                <motion.div
+                                  key={idx}
+                                  initial={{ opacity: 0, y: 15 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                  className="bg-secondary/50 rounded-xl p-4 border border-border/30"
+                                >
+                                  <p className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2">
+                                    <span className="text-primary/60 mt-0.5 shrink-0">—</span>
+                                    {d}
+                                  </p>
+                                </motion.div>
+                              ))}
+                            </div>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

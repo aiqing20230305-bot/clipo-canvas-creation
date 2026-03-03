@@ -1,25 +1,35 @@
-import { motion } from "framer-motion";
-import { Layers, Zap, Scale } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Layers, Zap, Scale, ChevronDown } from "lucide-react";
+import { useState } from "react";
+import IridescentCard from "./IridescentCard";
 
 const painPoints = [
   {
     icon: Layers,
     title: "素材拍完即废",
+    summary: "百万级素材资产正在贬值",
     description: "花大价钱拍的TVC，发完就躺进硬盘。缺乏内容运营思维，百万级素材资产正在贬值。",
+    details: ["内容复用率不足5%", "缺乏多平台适配能力", "拍摄成本无法被摊薄"],
   },
   {
     icon: Zap,
     title: "产能跟不上平台节奏",
+    summary: "靠人剪根本跟不上",
     description: "抖音要日更、快手要矩阵、小红书要种草、TikTok要本地化。每个平台规则不同，靠人剪根本跟不上。",
+    details: ["多平台规则差异大", "人工剪辑效率低下", "内容更新频率不达标"],
   },
   {
     icon: Scale,
     title: "不懂平台就没有流量",
+    summary: "再好的素材也是白费",
     description: "内容好不等于有量。不了解各平台推荐算法、内容合规和运营节奏，再好的素材也是白费。",
+    details: ["算法规则持续变化", "合规审核标准不一", "缺乏数据驱动迭代"],
   },
 ];
 
 const PainPointsSection = () => {
+  const [expanded, setExpanded] = useState<number | null>(null);
+
   return (
     <section className="py-16">
       <div className="container mx-auto px-6">
@@ -39,20 +49,62 @@ const PainPointsSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-px bg-border/50 rounded-2xl overflow-hidden">
-          {painPoints.map((point, i) => (
-            <motion.div
-              key={point.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="bg-card p-10 group hover:bg-secondary/50 transition-colors duration-500"
-            >
-              <point.icon className="w-5 h-5 text-primary mb-8" strokeWidth={1.5} />
-              <h3 className="font-display text-lg font-semibold text-foreground mb-3">{point.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{point.description}</p>
-            </motion.div>
-          ))}
+          {painPoints.map((point, i) => {
+            const isOpen = expanded === i;
+            return (
+              <motion.div
+                key={point.title}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-card p-10 group hover:bg-secondary/50 transition-colors duration-500 cursor-pointer select-none"
+                data-cursor="expand"
+                onClick={() => setExpanded(isOpen ? null : i)}
+              >
+                <div className="flex items-center justify-between mb-8">
+                  <point.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
+                  <motion.div
+                    animate={{ rotate: isOpen ? 180 : 0 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                  >
+                    <ChevronDown className="w-4 h-4 text-muted-foreground" />
+                  </motion.div>
+                </div>
+                <h3 className="font-display text-lg font-semibold text-foreground mb-2">{point.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-0">
+                  {isOpen ? point.description : point.summary}
+                </p>
+
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="pt-5 mt-5 border-t border-border/50 space-y-2">
+                        {point.details.map((d, idx) => (
+                          <motion.p
+                            key={idx}
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: idx * 0.08, duration: 0.3 }}
+                            className="text-sm text-muted-foreground flex items-center gap-2"
+                          >
+                            <span className="w-1 h-1 rounded-full bg-primary/60 shrink-0" />
+                            {d}
+                          </motion.p>
+                        ))}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
