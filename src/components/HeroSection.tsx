@@ -103,14 +103,8 @@ const HeroSection = () => {
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-4xl"
         >
-          <motion.p
-            className="text-xs md:text-sm text-muted-foreground font-medium tracking-[0.3em] uppercase mb-8"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            Content Production · Operations · Distribution
-          </motion.p>
+
+
 
           <h1 className="font-display text-5xl md:text-8xl font-bold leading-[0.95] mb-8" style={{ perspective: "600px" }}>
             <RevealLine delay={0.3}>
