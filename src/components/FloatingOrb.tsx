@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
  * Creates a dramatic, cinematic focal point.
  */
 const FloatingOrb = () => (
-  <div className="absolute top-1/2 right-0 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] pointer-events-none">
+  <div className="absolute top-1/2 -right-[200px] md:-right-[150px] -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] pointer-events-none z-0 opacity-70">
     {/* Primary orb */}
     <motion.div
       className="absolute inset-0"
