@@ -83,20 +83,21 @@ const PricingCalculator = () => {
   const billingLabel = billing === "volume" ? "按条计费" : "按曝光计费";
 
   return (
-    <section id="pricing" className="py-24">
+    <section id="pricing" className="py-32">
       <div className="container mx-auto px-6">
         {/* 标题 */}
         <motion.div
-          className="mb-16"
+          className="mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+          <p className="text-xs text-muted-foreground tracking-[0.3em] uppercase mb-4">Pricing</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
             智能<span className="text-gradient-purple">报价计算器</span>
           </h2>
-          <p className="text-muted-foreground text-lg">输入数量，实时查看您的专属报价</p>
+          <p className="text-muted-foreground text-base mt-3">输入数量，实时查看您的专属报价</p>
         </motion.div>
 
         <motion.div
@@ -106,7 +107,7 @@ const PricingCalculator = () => {
           transition={{ type: "spring", stiffness: 80, damping: 18 }}
           className="w-full mx-auto"
         >
-          <div className="bg-card rounded-3xl border border-border overflow-hidden">
+          <div className="bg-card rounded-3xl border border-border/50 overflow-hidden">
             {/* ── 顶部控制栏 ── */}
             <div className="p-6 md:p-8 border-b border-border">
               <div className="flex flex-col sm:flex-row gap-4">

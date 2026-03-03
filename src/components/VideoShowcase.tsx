@@ -30,11 +30,11 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ type: "spring", stiffness: 80, damping: 18, delay: index * 0.15 }}
-      className="relative group cursor-pointer rounded-2xl overflow-hidden iridescent-border bg-card"
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+      className="relative group cursor-pointer rounded-2xl overflow-hidden bg-card border border-border/50"
       style={{ aspectRatio: "9 / 16" }}
       onClick={toggle}
     >
@@ -46,49 +46,44 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
         playsInline
         preload="metadata"
       />
-      {/* Overlay */}
       <div
-        className={`absolute inset-0 bg-background/40 flex items-center justify-center transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-background/30 flex items-center justify-center transition-opacity duration-500 ${
           playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
         }`}
       >
-        <div className="w-16 h-16 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center glow-purple">
+        <div className="w-12 h-12 rounded-full bg-foreground/10 backdrop-blur-md flex items-center justify-center border border-foreground/10">
           {playing ? (
-            <Pause className="w-7 h-7 text-primary-foreground" />
+            <Pause className="w-5 h-5 text-foreground" />
           ) : (
-            <Play className="w-7 h-7 text-primary-foreground ml-1" />
+            <Play className="w-5 h-5 text-foreground ml-0.5" />
           )}
         </div>
       </div>
-      {/* Title bar */}
-      <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-background/90 to-transparent">
-        <p className="text-sm font-medium text-foreground">{title}</p>
+      <div className="absolute bottom-0 inset-x-0 p-4 bg-gradient-to-t from-background/80 to-transparent">
+        <p className="text-xs font-medium text-foreground/80">{title}</p>
       </div>
     </motion.div>
   );
 };
 
 const VideoShowcase = () => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <section ref={ref} className="py-24">
+    <section className="py-32">
       <div className="container mx-auto px-6">
         <motion.div
-          className="mb-16"
+          className="mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            视频展示
+          <p className="text-xs text-muted-foreground tracking-[0.3em] uppercase mb-4">Showcase</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
+            作品展示
           </h2>
-          <p className="text-muted-foreground text-lg">AI 驱动的纯混剪作品，高效产出优质内容</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto">
           {videos.map((v, i) => (
             <VideoCard key={v.src} src={v.src} title={v.title} index={i} />
           ))}

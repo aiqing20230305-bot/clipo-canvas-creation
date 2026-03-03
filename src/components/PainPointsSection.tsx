@@ -1,63 +1,57 @@
 import { motion } from "framer-motion";
 import { Layers, Zap, Scale } from "lucide-react";
-import IridescentCard from "./IridescentCard";
 
 const painPoints = [
   {
     icon: Layers,
     title: "素材拍完即废",
-    subtitle: "Asset Waste",
-    description: "花大价钱拍的TVC，发完就躺进硬盘。百万级素材资产正在贬值，你却还在为下一条视频发愁。",
+    description: "花大价钱拍的TVC，发完就躺进硬盘。百万级素材资产正在贬值。",
   },
   {
     icon: Zap,
     title: "产能跟不上算法",
-    subtitle: "Speed Gap",
-    description: "平台要日更、要矩阵、要千人千面。靠人剪？一周能出几条？竞品已经日产百条碾压你的流量。",
+    description: "平台要日更、要矩阵、要千人千面。靠人剪？竞品已经日产百条碾压你的流量。",
   },
   {
     icon: Scale,
-    title: "爆款≠合规，合规≠流量",
-    subtitle: "The Impossible Triangle",
-    description: "想要爆量就踩线，想要合规就没量。在平台规则和转化之间反复拉扯，ROI始终上不去。",
+    title: "合规与流量的悖论",
+    description: "想要爆量就踩线，想要合规就没量。ROI始终上不去。",
   },
 ];
 
 const PainPointsSection = () => {
   return (
-    <section className="py-24">
+    <section className="py-32">
       <div className="container mx-auto px-6">
         <motion.div
-          className="mb-16"
+          className="mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ type: "spring", stiffness: 80, damping: 20 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            你的内容团队，正在被算法淘汰
+          <p className="text-xs text-muted-foreground tracking-[0.3em] uppercase mb-4">Pain Points</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
+            你的内容团队
+            <br />
+            <span className="text-muted-foreground">正在被算法淘汰</span>
           </h2>
-          <p className="text-muted-foreground text-lg">这些痛，每个品牌都经历过</p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-px bg-border/50 rounded-2xl overflow-hidden">
           {painPoints.map((point, i) => (
-            <IridescentCard
+            <motion.div
               key={point.title}
-              initial={{ opacity: 0, y: 30, scale: 0.97 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.1 }}
-              whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-              className="p-8 cursor-pointer group"
+              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="bg-card p-10 group hover:bg-secondary/50 transition-colors duration-500"
             >
-              <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5">
-                <point.icon className="w-6 h-6 text-primary" />
-              </div>
-              <h3 className="text-lg font-semibold text-foreground mb-1">{point.title}</h3>
-              <p className="text-xs text-primary mb-3 font-medium">{point.subtitle}</p>
+              <point.icon className="w-5 h-5 text-primary mb-8" strokeWidth={1.5} />
+              <h3 className="font-display text-lg font-semibold text-foreground mb-3">{point.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{point.description}</p>
-            </IridescentCard>
+            </motion.div>
           ))}
         </div>
       </div>
