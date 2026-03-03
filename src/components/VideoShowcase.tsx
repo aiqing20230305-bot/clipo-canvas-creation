@@ -5,6 +5,7 @@ import { Play, Pause } from "lucide-react";
 const videos = [
   { src: "/videos/lishi.mp4", title: "力士 · 品牌混剪" },
   { src: "/videos/qc-showcase.mp4", title: "品牌 · 创意混剪" },
+  { src: "/videos/march4-showcase.mp4", title: "创意 · 混剪作品" },
 ];
 
 const VideoCard = ({ src, title, index }: { src: string; title: string; index: number }) => {
@@ -81,7 +82,7 @@ const VideoShowcase = () => {
           <p className="text-muted-foreground text-lg">AI 驱动的纯混剪作品，高效产出优质内容</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 gap-6 max-w-xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-3xl mx-auto">
           {videos.map((v, i) => (
             <VideoCard key={v.src} src={v.src} title={v.title} index={i} />
           ))}
