@@ -1,9 +1,17 @@
+import clipoLogo from "@/assets/clipo-logo.webp";
+
 const Footer = () => {
   return (
     <footer className="py-10 border-t border-border">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
           <div>
+            <a href="https://clipo.cc" className="inline-block mb-3">
+              <img src={clipoLogo} alt="Clipo" className="h-7" />
+            </a>
+            <p className="text-sm text-muted-foreground">
+              联系我们：clipo.support@tezign.com
+            </p>
             <p className="text-sm text-muted-foreground">
               联系我们：clipo.support@tezign.com
             </p>
