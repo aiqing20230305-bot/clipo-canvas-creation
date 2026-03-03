@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Film, Bot, Sparkles } from "lucide-react";
+import IridescentCard from "./IridescentCard";
 
 const solutions = [
   {
@@ -56,34 +57,33 @@ const SolutionsSection = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {solutions.map((sol, i) => (
-            <motion.div
+            <IridescentCard
               key={sol.number}
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.12 }}
               whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-              className="bg-card rounded-2xl p-8 border border-border relative overflow-hidden group hover:border-primary/30 transition-colors cursor-pointer"
+              className="p-8 cursor-pointer group"
+              glowIntensity={1.2}
             >
               <span className="absolute top-4 right-6 text-6xl font-bold text-foreground/5">
                 {sol.number}
               </span>
-              <div className="relative z-10">
-                <div className="w-12 h-12 rounded-xl bg-gradient-purple flex items-center justify-center mb-5">
-                  <sol.icon className="w-6 h-6 text-primary-foreground" />
-                </div>
-                <h3 className="text-xl font-bold text-foreground mb-1">{sol.title}</h3>
-                <p className="text-sm text-primary mb-5">{sol.subtitle}</p>
-                <ul className="space-y-3">
-                  {sol.details.map((d, idx) => (
-                    <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2 leading-relaxed">
-                      <span className="text-primary mt-1 shrink-0">✓</span>
-                      {d}
-                    </li>
-                  ))}
-                </ul>
+              <div className="w-12 h-12 rounded-xl bg-gradient-purple flex items-center justify-center mb-5">
+                <sol.icon className="w-6 h-6 text-primary-foreground" />
               </div>
-            </motion.div>
+              <h3 className="text-xl font-bold text-foreground mb-1">{sol.title}</h3>
+              <p className="text-sm text-primary mb-5">{sol.subtitle}</p>
+              <ul className="space-y-3">
+                {sol.details.map((d, idx) => (
+                  <li key={idx} className="text-sm text-muted-foreground flex items-start gap-2 leading-relaxed">
+                    <span className="text-primary mt-1 shrink-0">✓</span>
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </IridescentCard>
           ))}
         </div>
       </div>

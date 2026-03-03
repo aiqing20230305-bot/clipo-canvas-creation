@@ -82,4 +82,60 @@
   .glow-purple {
     box-shadow: 0 0 30px hsl(270 70% 60% / 0.2), 0 0 60px hsl(270 70% 60% / 0.05);
   }
+
+  .iridescent-border {
+    position: relative;
+  }
+
+  .iridescent-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--angle, 0deg),
+      hsl(270 80% 65% / 0.4),
+      hsl(200 80% 60% / 0.3),
+      hsl(320 70% 55% / 0.4),
+      hsl(180 80% 60% / 0.3),
+      hsl(270 80% 65% / 0.4)
+    );
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    padding: 1px;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    animation: border-rotate 4s linear infinite;
+  }
+
+  .iridescent-border:hover::before {
+    opacity: 1;
+  }
+}
+
+@keyframes border-rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes cursor-hue-rotate {
+  0% { filter: blur(40px) hue-rotate(0deg); }
+  100% { filter: blur(40px) hue-rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
 }

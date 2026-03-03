@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
+import IridescentCard from "./IridescentCard";
 
 const tiers = [
   {
@@ -79,21 +80,20 @@ const PricingSection = () => {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
           {tiers.map((tier, i) => (
-            <motion.div
+            <IridescentCard
               key={tier.name}
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.08 }}
               whileHover={{ scale: 1.04, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-              className={`rounded-2xl p-6 border relative cursor-pointer ${
-                tier.highlight
-                  ? "bg-card border-primary/40"
-                  : "bg-card border-border hover:border-primary/30"
-              } transition-colors`}
+              className={`p-6 cursor-pointer group ${
+                tier.highlight ? "border-primary/40" : ""
+              }`}
+              glowIntensity={tier.highlight ? 1.5 : 1}
             >
               {tier.badge && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-purple text-xs text-primary-foreground font-medium">
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-purple text-xs text-primary-foreground font-medium z-20">
                   {tier.badge}
                 </div>
               )}
@@ -135,7 +135,7 @@ const PricingSection = () => {
                   </li>
                 ))}
               </ul>
-            </motion.div>
+            </IridescentCard>
           ))}
         </div>
 

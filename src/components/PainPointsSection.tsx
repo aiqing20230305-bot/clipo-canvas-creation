@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Layers, Zap, Scale } from "lucide-react";
+import IridescentCard from "./IridescentCard";
 
 const painPoints = [
   {
@@ -41,14 +42,14 @@ const PainPointsSection = () => {
 
         <div className="grid md:grid-cols-3 gap-6">
           {painPoints.map((point, i) => (
-            <motion.div
+            <IridescentCard
               key={point.title}
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.1 }}
               whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors cursor-pointer"
+              className="p-8 cursor-pointer group"
             >
               <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center mb-5">
                 <point.icon className="w-6 h-6 text-primary" />
@@ -56,7 +57,7 @@ const PainPointsSection = () => {
               <h3 className="text-lg font-semibold text-foreground mb-1">{point.title}</h3>
               <p className="text-xs text-primary mb-3 font-medium">{point.subtitle}</p>
               <p className="text-sm text-muted-foreground leading-relaxed">{point.description}</p>
-            </motion.div>
+            </IridescentCard>
           ))}
         </div>
       </div>

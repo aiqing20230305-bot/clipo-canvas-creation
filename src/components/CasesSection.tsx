@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import IridescentCard from "./IridescentCard";
 
 /**
  * Parse a stat value like "1000+", "14.3w+", "2.03↑", "130条/周"
@@ -112,14 +113,14 @@ const CasesSection = () => {
 
         <div className="grid md:grid-cols-2 gap-6">
           {cases.map((c, i) => (
-            <motion.div
+            <IridescentCard
               key={c.brand}
               initial={{ opacity: 0, y: 30, scale: 0.97 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true }}
               transition={{ type: "spring", stiffness: 100, damping: 16, delay: i * 0.1 }}
               whileHover={{ scale: 1.03, transition: { type: "spring", stiffness: 300, damping: 20 } }}
-              className="bg-card rounded-2xl p-8 border border-border hover:border-primary/30 transition-colors cursor-pointer"
+              className="p-8 cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -137,7 +138,7 @@ const CasesSection = () => {
                 ))}
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">{c.description}</p>
-            </motion.div>
+            </IridescentCard>
           ))}
         </div>
       </div>
