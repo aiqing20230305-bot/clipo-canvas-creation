@@ -43,7 +43,10 @@ const SpotlightCard = ({ children, isOpen, onClick }: { children: ReactNode; isO
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const opacity = useMotionValue(0);
+  const rawOpacity = useMotionValue(0);
+  const springOpacity = useSpring(rawOpacity, { stiffness: 200, damping: 25 });
+  const springX = useSpring(mouseX, { stiffness: 120, damping: 18 });
+  const springY = useSpring(mouseY, { stiffness: 120, damping: 18 });
 
   const handleMouseMove = useCallback((e: React.MouseEvent) => {
     if (!ref.current) return;
@@ -56,23 +59,35 @@ const SpotlightCard = ({ children, isOpen, onClick }: { children: ReactNode; isO
     <motion.div
       ref={ref}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => opacity.set(1)}
-      onMouseLeave={() => opacity.set(0)}
+      onMouseEnter={() => rawOpacity.set(1)}
+      onMouseLeave={() => rawOpacity.set(0)}
       className="relative bg-card rounded-2xl border border-border/50 overflow-hidden cursor-pointer select-none"
       data-cursor="expand"
       onClick={onClick}
-      whileHover={{ borderColor: "hsl(265 85% 65% / 0.3)" }}
+      whileHover={{ borderColor: "hsl(265 85% 65% / 0.35)" }}
       transition={{ duration: 0.3 }}
     >
-      {/* Radial spotlight glow that follows cursor */}
+      {/* Primary spotlight — soft, large, follows with spring lag */}
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-2xl z-0"
         style={{
-          opacity,
+          opacity: springOpacity,
+          background: useTransform(
+            [springX, springY],
+            ([x, y]) =>
+              `radial-gradient(500px circle at ${x}px ${y}px, hsl(265 85% 60% / 0.12), hsl(280 70% 55% / 0.06) 35%, transparent 65%)`
+          ),
+        }}
+      />
+      {/* Secondary tight glow — smaller, snappier, more vivid */}
+      <motion.div
+        className="pointer-events-none absolute -inset-px rounded-2xl z-0"
+        style={{
+          opacity: springOpacity,
           background: useTransform(
             [mouseX, mouseY],
             ([x, y]) =>
-              `radial-gradient(600px circle at ${x}px ${y}px, hsl(265 85% 65% / 0.08), hsl(200 80% 60% / 0.04) 40%, transparent 70%)`
+              `radial-gradient(250px circle at ${x}px ${y}px, hsl(265 90% 70% / 0.18), transparent 55%)`
           ),
         }}
       />
@@ -80,11 +95,11 @@ const SpotlightCard = ({ children, isOpen, onClick }: { children: ReactNode; isO
       <motion.div
         className="pointer-events-none absolute -inset-px rounded-2xl z-0"
         style={{
-          opacity,
+          opacity: springOpacity,
           background: useTransform(
-            [mouseX, mouseY],
+            [springX, springY],
             ([x, y]) =>
-              `radial-gradient(400px circle at ${x}px ${y}px, hsl(265 85% 65% / 0.15), transparent 60%)`
+              `radial-gradient(350px circle at ${x}px ${y}px, hsl(265 85% 65% / 0.25), transparent 55%)`
           ),
           mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
           maskComposite: "exclude",
