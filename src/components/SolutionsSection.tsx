@@ -39,10 +39,10 @@ const solutions = [
 
 const SolutionsSection = () => {
   return (
-    <section id="solutions" className="py-32">
+    <section id="solutions" className="py-16">
       <div className="container mx-auto px-6">
         <motion.div
-          className="mb-20"
+          className="mb-10"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
