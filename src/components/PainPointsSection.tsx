@@ -9,7 +9,6 @@ const painPoints = [
     summary: "百万级素材资产正在贬值",
     description: "花大价钱拍的TVC，发完就躺进硬盘。缺乏内容运营思维，百万级素材资产正在贬值。",
     details: ["内容复用率不足5%", "缺乏多平台适配能力", "拍摄成本无法被摊薄"],
-    code: "ERR_ASSET_DECAY",
   },
   {
     icon: Zap,
@@ -17,7 +16,6 @@ const painPoints = [
     summary: "靠人剪根本跟不上",
     description: "抖音要日更、快手要矩阵、小红书要种草、TikTok要本地化。每个平台规则不同，靠人剪根本跟不上。",
     details: ["多平台规则差异大", "人工剪辑效率低下", "内容更新频率不达标"],
-    code: "ERR_CAPACITY_OVERFLOW",
   },
   {
     icon: Scale,
@@ -25,10 +23,10 @@ const painPoints = [
     summary: "再好的素材也是白费",
     description: "内容好不等于有量。不了解各平台推荐算法、内容合规和运营节奏，再好的素材也是白费。",
     details: ["算法规则持续变化", "合规审核标准不一", "缺乏数据驱动迭代"],
-    code: "ERR_ZERO_TRAFFIC",
   },
 ];
 
+/* ── Spotlight hover card ── */
 const SpotlightPainCard = ({ children, onClick }: { children: React.ReactNode; onClick: () => void }) => {
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0);
@@ -50,10 +48,12 @@ const SpotlightPainCard = ({ children, onClick }: { children: React.ReactNode; o
       onMouseEnter={() => rawOpacity.set(1)}
       onMouseLeave={() => rawOpacity.set(0)}
       onClick={onClick}
-      className="relative bg-card p-10 group cursor-pointer select-none overflow-hidden border-r border-b border-accent/5 last:border-r-0"
-      whileHover={{ backgroundColor: "hsl(230 12% 9%)" }}
+      className="relative bg-card p-10 group cursor-pointer select-none overflow-hidden"
+      data-cursor="expand"
+      whileHover={{ backgroundColor: "hsl(240 4% 9%)" }}
       transition={{ duration: 0.4 }}
     >
+      {/* Spotlight glow */}
       <motion.div
         className="pointer-events-none absolute inset-0 z-0"
         style={{
@@ -61,7 +61,7 @@ const SpotlightPainCard = ({ children, onClick }: { children: React.ReactNode; o
           background: useTransform(
             [mouseX, mouseY],
             ([x, y]) =>
-              `radial-gradient(400px circle at ${x}px ${y}px, hsl(185 90% 50% / 0.06), hsl(265 85% 60% / 0.03) 40%, transparent 60%)`
+              `radial-gradient(400px circle at ${x}px ${y}px, hsl(265 85% 60% / 0.08), transparent 60%)`
           ),
         }}
       />
@@ -83,17 +83,15 @@ const PainPointsSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <p className="font-mono-cyber text-xs text-accent/60 tracking-[0.3em] uppercase mb-4">
-            // SYSTEM_ERRORS
-          </p>
-          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight tracking-wide">
+          <p className="text-xs text-muted-foreground tracking-[0.3em] uppercase mb-4">Pain Points</p>
+          <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground leading-tight">
             没有内容运营能力
             <br />
             <span className="text-muted-foreground">再好的AI也是空转</span>
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-px bg-accent/5 rounded-sm overflow-hidden">
+        <div className="grid md:grid-cols-3 gap-px bg-border/50 rounded-2xl overflow-hidden">
           {painPoints.map((point, i) => {
             const isOpen = expanded === i;
             return (
@@ -105,24 +103,21 @@ const PainPointsSection = () => {
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               >
                 <SpotlightPainCard onClick={() => setExpanded(isOpen ? null : i)}>
-                  <div className="flex items-center justify-between mb-6">
-                    <div className="flex items-center gap-3">
-                      <motion.div
-                        className="w-10 h-10 rounded-sm bg-accent/10 flex items-center justify-center border border-accent/20"
-                        whileHover={{ scale: 1.1, borderColor: "hsl(185 90% 50% / 0.4)" }}
-                      >
-                        <point.icon className="w-5 h-5 text-accent" strokeWidth={1.5} />
-                      </motion.div>
-                      <span className="font-mono-cyber text-[10px] text-cyber-pink/60 tracking-wider">{point.code}</span>
-                    </div>
+                  <div className="flex items-center justify-between mb-8">
+                    <motion.div
+                      className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center"
+                      whileHover={{ scale: 1.1, backgroundColor: "hsl(265 85% 65% / 0.2)" }}
+                    >
+                      <point.icon className="w-5 h-5 text-primary" strokeWidth={1.5} />
+                    </motion.div>
                     <motion.div
                       animate={{ rotate: isOpen ? 180 : 0 }}
                       transition={{ type: "spring", stiffness: 300, damping: 25 }}
                     >
-                      <ChevronDown className="w-4 h-4 text-accent/40" />
+                      <ChevronDown className="w-4 h-4 text-muted-foreground" />
                     </motion.div>
                   </div>
-                  <h3 className="font-display text-lg font-semibold text-foreground mb-2 tracking-wide">{point.title}</h3>
+                  <h3 className="font-display text-lg font-semibold text-foreground mb-2">{point.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-0">
                     {isOpen ? point.description : point.summary}
                   </p>
@@ -136,7 +131,7 @@ const PainPointsSection = () => {
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                         className="overflow-hidden"
                       >
-                        <div className="pt-5 mt-5 border-t border-accent/10 space-y-2">
+                        <div className="pt-5 mt-5 border-t border-border/50 space-y-2">
                           {point.details.map((d, idx) => (
                             <motion.p
                               key={idx}
@@ -145,7 +140,7 @@ const PainPointsSection = () => {
                               transition={{ delay: idx * 0.08, duration: 0.3 }}
                               className="text-sm text-muted-foreground flex items-center gap-2"
                             >
-                              <span className="w-1 h-1 rounded-full bg-accent/60 shrink-0" />
+                              <span className="w-1 h-1 rounded-full bg-primary/60 shrink-0" />
                               {d}
                             </motion.p>
                           ))}
