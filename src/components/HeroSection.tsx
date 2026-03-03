@@ -1,16 +1,18 @@
 import { motion } from "framer-motion";
+import { DouyinIcon, KuaishouIcon, XiaohongshuIcon, ShipinHaoIcon, BilibiliIcon, TikTokIcon, InstagramIcon, YouTubeIcon, FacebookIcon, XTwitterIcon } from "./PlatformIcons";
+import { ReactNode } from "react";
 
-const platforms = [
-  { name: "抖音", icon: "📱" },
-  { name: "快手", icon: "⚡" },
-  { name: "小红书", icon: "📕" },
-  { name: "视频号", icon: "📺" },
-  { name: "B站", icon: "🎮" },
-  { name: "TikTok", icon: "🎵" },
-  { name: "Instagram", icon: "📷" },
-  { name: "YouTube", icon: "▶️" },
-  { name: "Facebook", icon: "🌐" },
-  { name: "X / Twitter", icon: "✖️" },
+const platforms: { name: string; icon: ReactNode }[] = [
+  { name: "抖音", icon: <DouyinIcon /> },
+  { name: "快手", icon: <KuaishouIcon /> },
+  { name: "小红书", icon: <XiaohongshuIcon /> },
+  { name: "视频号", icon: <ShipinHaoIcon /> },
+  { name: "B站", icon: <BilibiliIcon /> },
+  { name: "TikTok", icon: <TikTokIcon /> },
+  { name: "Instagram", icon: <InstagramIcon /> },
+  { name: "YouTube", icon: <YouTubeIcon /> },
+  { name: "Facebook", icon: <FacebookIcon /> },
+  { name: "X / Twitter", icon: <XTwitterIcon /> },
 ];
 
 // Duplicate for seamless loop
@@ -129,7 +131,7 @@ const HeroSection = () => {
                     key={`${p.name}-${i}`}
                     className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 bg-card/50 backdrop-blur-sm shrink-0 hover:border-primary/30 transition-colors duration-300"
                   >
-                    <span className="text-sm">{p.icon}</span>
+                    <span className="text-sm text-foreground/70">{p.icon}</span>
                     <span className="text-xs text-foreground/60 whitespace-nowrap">{p.name}</span>
                   </div>
                 ))}
