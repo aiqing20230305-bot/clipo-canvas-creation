@@ -2,19 +2,34 @@ import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { Play, Pause, Volume2 } from "lucide-react";
 
-const videos = [
-  { src: "/videos/lishi.mp4", title: "力士 · 品牌混剪" },
-  { src: "/videos/qc-showcase.mp4", title: "品牌 · 创意混剪" },
-  { src: "/videos/march4-showcase.mp4", title: "创意 · 混剪作品" },
-  { src: "/videos/03-1.mp4", title: "品牌 · 视觉混剪" },
-  { src: "/videos/march4-v2.mp4", title: "创意 · 风格混剪" },
-  { src: "/videos/march4-v3.mp4", title: "品牌 · 精选混剪" },
-  { src: "/videos/march4-v4.mp4", title: "创意 · 动感混剪" },
-  { src: "/videos/march4-v5.mp4", title: "品牌 · 质感混剪" },
-  { src: "/videos/march4-v6.mp4", title: "创意 · 灵感混剪" },
+const categories = [
+  {
+    label: "素材混剪",
+    videos: [
+      "/videos/lishi.mp4",
+      "/videos/qc-showcase.mp4",
+      "/videos/march4-showcase.mp4",
+    ],
+  },
+  {
+    label: "AI前贴+数字人混剪",
+    videos: [
+      "/videos/03-1.mp4",
+      "/videos/march4-v2.mp4",
+      "/videos/march4-v3.mp4",
+    ],
+  },
+  {
+    label: "AIGC视频",
+    videos: [
+      "/videos/march4-v4.mp4",
+      "/videos/march4-v5.mp4",
+      "/videos/march4-v6.mp4",
+    ],
+  },
 ];
 
-const VideoCard = ({ src, title, index }: { src: string; title: string; index: number }) => {
+const VideoCard = ({ src, index }: { src: string; index: number }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const [hovered, setHovered] = useState(false);
@@ -31,10 +46,10 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 50 }}
+      initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
       className="relative group cursor-pointer"
       style={{ aspectRatio: "9 / 16" }}
       onClick={toggle}
@@ -52,7 +67,6 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
         aria-hidden="true"
       />
 
-      {/* Card */}
       <div className="relative rounded-2xl overflow-hidden h-full bg-card border border-border/30">
         <video
           ref={videoRef}
@@ -63,7 +77,6 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
           preload="metadata"
         />
 
-        {/* Dark gradient overlay — always visible, adjusts on play */}
         <div
           className="absolute inset-0 transition-opacity duration-500"
           style={{
@@ -73,7 +86,6 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
           }}
         />
 
-        {/* Center play/pause */}
         <div
           className={`absolute inset-0 flex items-center justify-center transition-all duration-500 ${
             playing ? "opacity-0 group-hover:opacity-100" : "opacity-100"
@@ -82,56 +94,43 @@ const VideoCard = ({ src, title, index }: { src: string; title: string; index: n
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="w-14 h-14 rounded-full bg-foreground/5 backdrop-blur-xl flex items-center justify-center border border-foreground/10 shadow-2xl"
+            className="w-12 h-12 rounded-full bg-foreground/5 backdrop-blur-xl flex items-center justify-center border border-foreground/10 shadow-2xl"
           >
             {playing ? (
-              <Pause className="w-5 h-5 text-foreground/90" />
+              <Pause className="w-4 h-4 text-foreground/90" />
             ) : (
-              <Play className="w-5 h-5 text-foreground/90 ml-0.5" />
+              <Play className="w-4 h-4 text-foreground/90 ml-0.5" />
             )}
           </motion.div>
         </div>
 
-        {/* Bottom info */}
-        <div className="absolute bottom-0 inset-x-0 p-5">
-          <div className="flex items-end justify-between">
-            <div>
-              <p className="text-[11px] text-foreground/90 font-medium tracking-wide">{title}</p>
-            </div>
-            {playing && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex items-center gap-1"
-              >
-                <Volume2 className="w-3 h-3 text-foreground/50" />
-                {/* Audio bars animation */}
-                <div className="flex items-end gap-[2px] h-3">
-                  {[0, 1, 2].map((i) => (
-                    <motion.div
-                      key={i}
-                      className="w-[2px] bg-primary/60 rounded-full"
-                      animate={{ height: ["4px", "12px", "6px", "10px", "4px"] }}
-                      transition={{
-                        duration: 1.2,
-                        repeat: Infinity,
-                        delay: i * 0.15,
-                        ease: "easeInOut",
-                      }}
-                    />
-                  ))}
-                </div>
-              </motion.div>
-            )}
+        {/* Bottom audio indicator */}
+        {playing && (
+          <div className="absolute bottom-3 right-3">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex items-center gap-1"
+            >
+              <Volume2 className="w-3 h-3 text-foreground/50" />
+              <div className="flex items-end gap-[2px] h-3">
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-[2px] bg-primary/60 rounded-full"
+                    animate={{ height: ["4px", "12px", "6px", "10px", "4px"] }}
+                    transition={{
+                      duration: 1.2,
+                      repeat: Infinity,
+                      delay: i * 0.15,
+                      ease: "easeInOut",
+                    }}
+                  />
+                ))}
+              </div>
+            </motion.div>
           </div>
-        </div>
-
-        {/* Top index number */}
-        <div className="absolute top-4 left-5">
-          <span className="font-display text-[10px] text-foreground/20 tracking-widest">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-        </div>
+        )}
       </div>
     </motion.div>
   );
@@ -155,19 +154,36 @@ const VideoShowcase = () => {
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-            AI驱动的纯混剪作品，点击播放查看效果
+            AI驱动的内容作品，点击播放查看效果
           </p>
         </motion.div>
 
-        {/* Masonry-like staggered grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 max-w-5xl mx-auto">
-          {videos.map((v, i) => (
-            <div
-              key={v.src}
-              className={i % 3 === 1 ? "md:mt-8" : i % 3 === 2 ? "md:mt-16" : ""}
+        {/* Horizontal row: 3 categories side by side */}
+        <div className="grid md:grid-cols-3 gap-8">
+          {categories.map((cat, catIdx) => (
+            <motion.div
+              key={cat.label}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: catIdx * 0.15, ease: [0.16, 1, 0.3, 1] }}
             >
-              <VideoCard src={v.src} title={v.title} index={i} />
-            </div>
+              {/* Category label */}
+              <div className="mb-4 flex items-center gap-3">
+                <span className="font-display text-xs text-primary tracking-widest uppercase font-medium">
+                  {String(catIdx + 1).padStart(2, "0")}
+                </span>
+                <span className="text-sm font-medium text-foreground">{cat.label}</span>
+                <div className="flex-1 h-px bg-border/50" />
+              </div>
+
+              {/* Videos stack */}
+              <div className="space-y-3">
+                {cat.videos.map((src, i) => (
+                  <VideoCard key={src} src={src} index={catIdx * 3 + i} />
+                ))}
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
