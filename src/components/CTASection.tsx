@@ -55,16 +55,16 @@ const CTASection = () => {
                 animate={{ scale: [1, 1.4, 1], opacity: [1, 0.6, 1] }}
                 transition={{ duration: 2, repeat: Infinity }}
               />
-              <span className="text-xs text-primary font-medium tracking-wider uppercase">Get Started</span>
+              <span className="text-xs text-primary font-medium tracking-wider uppercase">New World Awaits</span>
             </motion.div>
 
             <h2 className="font-display text-3xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-              还在犹豫？
+              新世界已在前方
               <br />
-              <span className="text-gradient-purple">你的竞品已经开始了</span>
+              <span className="text-gradient-purple">你准备好启航了吗？</span>
             </h2>
             <p className="text-muted-foreground text-base mb-10 max-w-md mx-auto">
-              立即开启AI内容引擎，抢在流量红利消失之前
+              立即开启AI内容引擎，驶向流量增长的新大陆
             </p>
             <motion.a
               href="https://asset.clipo.cc/video-agent/signup"
