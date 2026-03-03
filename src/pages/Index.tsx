@@ -8,21 +8,27 @@ import PricingCalculator from "@/components/PricingCalculator";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import AuroraBackground from "@/components/AuroraBackground";
-
+import NoiseOverlay from "@/components/NoiseOverlay";
+import GlowDivider from "@/components/GlowDivider";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background relative">
       <AuroraBackground />
-      
+      <NoiseOverlay />
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
+        <GlowDivider />
         <PainPointsSection />
+        <GlowDivider />
         <SolutionsSection />
+        <GlowDivider />
         <CasesSection />
         <VideoShowcase />
+        <GlowDivider />
         <PricingCalculator />
+        <GlowDivider />
         <CTASection />
         <Footer />
       </div>
