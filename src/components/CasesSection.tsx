@@ -83,7 +83,7 @@ const cases = [
     description: "提前梳理卖点与人群；字幕/花字与品牌色强相关。",
   },
   {
-    brand: "BRITA 碧然德",
+    brand: "某知名家电品牌",
     tag: "家电",
     title: "ROI 高效提升",
     stats: [
