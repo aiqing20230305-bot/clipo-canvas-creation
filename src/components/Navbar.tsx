@@ -17,12 +17,10 @@ const Navbar = () => {
           </div>
 
           {/* Center nav links */}
-          <div className="hidden md:flex items-center gap-1">
-            <NavItem href="#solutions" label="解决方案" code="01" />
-            <span className="text-primary/15 text-xs mx-1">|</span>
-            <NavItem href="#cases" label="案例" code="02" />
-            <span className="text-primary/15 text-xs mx-1">|</span>
-            <NavItem href="#pricing" label="报价" code="03" />
+          <div className="hidden md:flex items-center gap-6">
+            <a href="#solutions" className="text-xs text-foreground/70 hover:text-foreground transition-colors tracking-wide">解决方案</a>
+            <a href="#cases" className="text-xs text-foreground/70 hover:text-foreground transition-colors tracking-wide">案例</a>
+            <a href="#pricing" className="text-xs text-foreground/70 hover:text-foreground transition-colors tracking-wide">报价</a>
           </div>
 
           {/* Right side */}
