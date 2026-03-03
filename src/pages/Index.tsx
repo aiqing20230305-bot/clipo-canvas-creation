@@ -13,9 +13,14 @@ import GlowDivider from "@/components/GlowDivider";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background relative">
+    <div className="min-h-screen bg-background relative scanlines">
       <AuroraBackground />
       <NoiseOverlay />
+
+      {/* Starship hull side rails */}
+      <div className="fixed top-0 bottom-0 left-0 w-px bg-gradient-to-b from-transparent via-primary/8 to-transparent z-40 pointer-events-none" />
+      <div className="fixed top-0 bottom-0 right-0 w-px bg-gradient-to-b from-transparent via-primary/8 to-transparent z-40 pointer-events-none" />
+
       <div className="relative z-10">
         <Navbar />
         <HeroSection />
