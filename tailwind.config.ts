@@ -15,7 +15,8 @@ export default {
     extend: {
       fontFamily: {
         sans: ['"Space Grotesk"', '"Noto Sans SC"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        display: ['"Space Grotesk"', '"Noto Sans SC"', 'sans-serif'],
+        display: ['"Orbitron"', '"Space Grotesk"', '"Noto Sans SC"', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'monospace'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -50,6 +51,11 @@ export default {
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
+        },
+        cyber: {
+          cyan: "hsl(var(--cyber-cyan))",
+          pink: "hsl(var(--cyber-pink))",
+          purple: "hsl(var(--cyber-purple))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

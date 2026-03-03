@@ -1,6 +1,5 @@
 /**
- * Film grain / noise overlay for a premium, editorial feel.
- * Uses an inline SVG filter for performance.
+ * Scanline + noise overlay for cyberpunk CRT feel
  */
 const NoiseOverlay = () => (
   <div className="fixed inset-0 pointer-events-none z-50" aria-hidden="true">
@@ -14,8 +13,15 @@ const NoiseOverlay = () => (
       className="absolute inset-0"
       style={{
         filter: "url(#noise)",
-        opacity: 0.03,
+        opacity: 0.025,
         mixBlendMode: "overlay",
+      }}
+    />
+    {/* Subtle horizontal scanlines */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background: "repeating-linear-gradient(0deg, transparent, transparent 3px, hsl(185 90% 50% / 0.01) 3px, hsl(185 90% 50% / 0.01) 6px)",
       }}
     />
   </div>
