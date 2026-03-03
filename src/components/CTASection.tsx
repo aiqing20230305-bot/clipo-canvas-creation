@@ -12,10 +12,10 @@ const CTASection = () => {
           transition={{ type: "spring", stiffness: 80, damping: 18 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            准备好开始AI创作之旅了吗？
+            还在犹豫？你的竞品已经开始了
           </h2>
           <p className="text-muted-foreground text-lg mb-8">
-            现在即可联系我们，获取专属内容生产方案
+            立即开启AI内容引擎，抢在流量红利消失之前
           </p>
           <a
             href="https://asset.clipo.cc/video-agent/signup"

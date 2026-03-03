@@ -73,9 +73,9 @@ const PricingSection = () => {
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gradient-purple mb-3">
-            报价
+            一条视频最低5元，比实习生还便宜
           </h2>
-          <p className="text-muted-foreground text-lg">按量阶梯计费</p>
+          <p className="text-muted-foreground text-lg">量越大越划算，规模化才是正确的打法</p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">

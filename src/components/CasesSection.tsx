@@ -106,9 +106,9 @@ const CasesSection = () => {
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            成功案例
+            不是PPT，是真金白银的结果
           </h2>
-          <p className="text-muted-foreground text-lg">跨行业实现 ROI 稳定增长</p>
+          <p className="text-muted-foreground text-lg">头部品牌已经用数据证明了一切</p>
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-6">

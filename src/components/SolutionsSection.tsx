@@ -6,34 +6,34 @@ const solutions = [
   {
     number: "01",
     icon: Film,
-    title: "素材混剪视频",
-    subtitle: "极致性价比，存量素材规模化复用",
+    title: "素材混剪引擎",
+    subtitle: "一条TVC裂变出1000条投放素材",
     details: [
-      "基于客户素材（TVC、生拍素材、图片等），通过AI脚本拆解与重新组合",
-      "通过普通剪辑手段实现视频的裂变",
-      "适用于抖音/TikTok/快手矩阵帐号铺量、电商引流、新品测试",
+      "AI拆解脚本逻辑，自动重组镜头顺序与节奏",
+      "存量素材不再一次性消耗，持续产出新内容",
+      "抖音/快手/TikTok矩阵铺量，日产百条起步",
     ],
   },
   {
     number: "02",
     icon: Bot,
-    title: "AI前贴与数字人",
-    subtitle: "黄金3秒法则，提升留存与转化",
+    title: "AI前贴 & 数字人",
+    subtitle: "黄金3秒锁住用户，划走率直降40%",
     details: [
-      "AI前贴（AI Intro）：生成视觉冲击力的片头，解决划走率高的问题",
-      "数字人视频（Digital Human）：虚拟主播口播，高密度信息输出",
-      "无需真人拍摄成本，建立信任感",
+      "AI生成视觉炸裂的片头，第一帧就抓住注意力",
+      "数字人口播替代真人拍摄，成本降低80%",
+      "7×24小时内容产出，不请假、不NG、不加钱",
     ],
   },
   {
     number: "03",
     icon: Sparkles,
-    title: "纯AI生产视频",
-    subtitle: "AIGC全生成，突破创意与拍摄限制",
+    title: "纯AI视频生成",
+    subtitle: "没素材？AI从零造出大片级视频",
     details: [
-      "Text-to-Video & Image-to-Video（Sora/Runway级能力）",
-      "Prompt工程 → 风格一致性调优 → 视频生成",
-      "适用于抽象概念表达、品牌故事片、无存量素材的情况",
+      "Sora/Runway级文生视频能力，创意不再受拍摄限制",
+      "品牌故事、产品演示、概念广告一键生成",
+      "从brief到成片，最快30分钟交付",
     ],
   },
 ];
@@ -50,9 +50,9 @@ const SolutionsSection = () => {
           transition={{ type: "spring", stiffness: 80, damping: 20 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
-            全链路智能内容工厂
+            三层火箭，把内容产能拉满
           </h2>
-          <p className="text-muted-foreground text-lg">三层产品架构，覆盖全场景内容需求</p>
+          <p className="text-muted-foreground text-lg">从"人剪"到"AI造"，每一层都在颠覆效率天花板</p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
