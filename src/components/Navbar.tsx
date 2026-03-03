@@ -10,12 +10,7 @@ const Navbar = () => {
       <div className="bg-background/40 backdrop-blur-2xl border-b border-primary/10">
         <div className="container mx-auto px-6 flex items-center justify-between h-14">
           {/* Left HUD bracket + logo */}
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1 text-primary/40 text-[10px] font-mono tracking-widest hidden md:flex">
-              <span className="text-primary/20">[</span>
-              SYS.ONLINE
-              <span className="text-primary/20">]</span>
-            </div>
+          <div className="flex items-center">
             <a href="https://clipo.cc" className="flex items-center">
               <img src={clipoLogo} alt="Clipo" className="h-6" />
             </a>
