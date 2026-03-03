@@ -81,8 +81,7 @@ const SolutionsSection = () => {
                   <div className="p-8 md:p-10">
                     <div className="flex flex-col md:flex-row md:items-center gap-6 md:gap-12">
                       {/* Left: number + icon */}
-                      <div className="flex items-center gap-4 md:w-48 shrink-0">
-                        <span className="font-display text-4xl font-bold text-foreground/10">{sol.number}</span>
+                      <div className="flex items-center gap-4 shrink-0">
                         <motion.div
                           className="w-10 h-10 rounded-xl bg-gradient-purple flex items-center justify-center"
                           animate={{ rotate: isOpen ? 90 : 0, scale: isOpen ? 1.1 : 1 }}
