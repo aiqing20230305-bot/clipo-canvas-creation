@@ -125,14 +125,14 @@ const HeroSection = () => {
               <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
               <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
 
-              <div className="flex animate-marquee gap-6">
+              <div className="flex animate-marquee gap-8">
                 {doubledPlatforms.map((p, i) => (
                   <div
                     key={`${p.name}-${i}`}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full border border-border/40 bg-card/50 backdrop-blur-sm shrink-0 hover:border-primary/30 transition-colors duration-300"
+                    className="flex items-center gap-3 px-5 py-3 rounded-full border border-border/40 bg-card/50 backdrop-blur-sm shrink-0 hover:border-primary/50 hover:bg-primary/5 hover:scale-110 transition-all duration-300 cursor-default group"
                   >
-                    <span className="text-sm text-foreground/70">{p.icon}</span>
-                    <span className="text-xs text-foreground/60 whitespace-nowrap">{p.name}</span>
+                    <span className="text-foreground/70 group-hover:text-primary transition-colors duration-300 [&>svg]:w-5 [&>svg]:h-5">{p.icon}</span>
+                    <span className="text-sm text-foreground/60 group-hover:text-foreground/90 whitespace-nowrap transition-colors duration-300">{p.name}</span>
                   </div>
                 ))}
               </div>
