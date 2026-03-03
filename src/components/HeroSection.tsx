@@ -10,9 +10,14 @@ const HeroSection = () => {
           transition={{ type: "spring", stiffness: 80, damping: 20, mass: 1 }}
           className="max-w-3xl"
         >
+          <p className="text-sm md:text-base text-primary font-medium tracking-widest uppercase mb-4">
+            AI-Powered Content Engine
+          </p>
           <h1 className="text-5xl md:text-7xl font-bold leading-tight mb-6">
+            <span className="text-foreground">别人还在剪片，</span>
+            <br />
             <span className="text-gradient-purple relative">
-              2026 内容生产
+              你已经日产千条
               <span
                 className="absolute inset-0 bg-clip-text text-transparent animate-shimmer pointer-events-none"
                 style={{
@@ -22,14 +27,14 @@ const HeroSection = () => {
                 }}
                 aria-hidden="true"
               >
-                2026 内容生产
+                你已经日产千条
               </span>
             </span>
-            <br />
-            <span className="text-foreground">内容增长解决方案</span>
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl">
-            驱动生意的规模化内容引擎：从素材混剪 到 纯AI生成
+          <p className="text-lg md:text-xl text-muted-foreground mb-10 max-w-xl leading-relaxed">
+            从素材混剪到纯 AI 生成，<span className="text-foreground font-medium">一套引擎取代整支团队</span>。
+            <br className="hidden md:block" />
+            ROI 最高提升 4.76×，周产 500+ 条，已服务头部品牌验证。
           </p>
         </motion.div>
 
