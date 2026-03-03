@@ -1,6 +1,6 @@
 import { motion, useMotionValue, useSpring, useTransform, AnimatePresence } from "framer-motion";
 import { DouyinIcon, KuaishouIcon, XiaohongshuIcon, ShipinHaoIcon, BilibiliIcon, TikTokIcon, InstagramIcon, YouTubeIcon, FacebookIcon, XTwitterIcon } from "./PlatformIcons";
-import { ReactNode, useRef, useState, useCallback } from "react";
+import { ReactNode, useRef, useState, useCallback, useEffect } from "react";
 import FloatingOrb from "./FloatingOrb";
 
 const platforms: { name: string; icon: ReactNode }[] = [
@@ -82,16 +82,33 @@ const RevealLine = ({ children, delay = 0, className = "" }: { children: React.R
 );
 
 const HeroSection = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [videoOpacity, setVideoOpacity] = useState(0.8);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const onTimeUpdate = () => {
+      if (video.duration) {
+        const progress = video.currentTime / video.duration;
+        setVideoOpacity(0.8 - progress * 0.5); // 0.8 → 0.3
+      }
+    };
+    video.addEventListener("timeupdate", onTimeUpdate);
+    return () => video.removeEventListener("timeupdate", onTimeUpdate);
+  }, []);
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background video */}
       <div className="absolute inset-0 z-0">
         <video
+          ref={videoRef}
           autoPlay
           muted
           playsInline
-          className="w-full h-full object-cover"
-          style={{ opacity: 0.5 }}
+          className="w-full h-full object-cover transition-opacity duration-300"
+          style={{ opacity: videoOpacity }}
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
