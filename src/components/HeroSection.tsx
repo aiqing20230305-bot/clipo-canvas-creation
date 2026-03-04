@@ -57,7 +57,7 @@ const HeroSection = () => {
     const onTimeUpdate = () => {
       if (video.duration) {
         const progress = video.currentTime / video.duration;
-        setVideoOpacity(0.5 - progress * 0.3); // 0.5 → 0.2
+        setVideoOpacity(0.8 - progress * 0.3); // 0.8 → 0.5
       }
     };
     video.addEventListener("timeupdate", onTimeUpdate);
