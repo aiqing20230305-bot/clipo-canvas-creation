@@ -57,7 +57,7 @@ const HeroSection = () => {
     const onTimeUpdate = () => {
       if (video.duration) {
         const progress = video.currentTime / video.duration;
-        setVideoOpacity(0.8 - progress * 0.5); // 0.8 → 0.3
+        setVideoOpacity(0.5 - progress * 0.3); // 0.5 → 0.2
       }
     };
     video.addEventListener("timeupdate", onTimeUpdate);
@@ -78,7 +78,7 @@ const HeroSection = () => {
         >
           <source src="/videos/hero-bg.mp4" type="video/mp4" />
         </video>
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/75 to-background" />
       </div>
 
       {/* Ambient grid lines */}
