@@ -75,7 +75,8 @@ const PainPointsSection = () => {
   const [expanded, setExpanded] = useState<number | null>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const imgY = useTransform(scrollYProgress, [0, 1], isMobile ? ["-5%", "5%"] : ["-15%", "15%"]);
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
