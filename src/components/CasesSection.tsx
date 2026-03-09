@@ -114,15 +114,16 @@ const CasesSection = () => {
           </h2>
         </motion.div>
 
-        {/* Section illustration */}
+        {/* Section illustration with parallax */}
         <motion.div
-          className="mb-10 rounded-2xl overflow-hidden relative"
+          ref={parallaxRef}
+          className="mb-10 rounded-2xl overflow-hidden relative h-36 md:h-48"
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img src={casesHero} alt="案例数据" className="w-full h-36 md:h-48 object-cover opacity-60" />
+          <motion.img src={casesHero} alt="案例数据" className="absolute inset-0 w-full h-[130%] object-cover opacity-60" style={{ y: imgY }} />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-background/20" />
         </motion.div>
