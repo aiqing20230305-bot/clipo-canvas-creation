@@ -35,6 +35,7 @@ const solutions = [
     icon: Sparkles,
     title: "纯AI视频生成",
     subtitle: "从内容策略到成片，全链路AI交付",
+    image: solutionAigc,
     details: [
       "Sora/Runway级文生视频，品牌故事、产品演示一键生成",
       "内置各平台内容合规审核，发布即合规",
