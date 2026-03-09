@@ -1,4 +1,4 @@
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import casesHero from "@/assets/cases-hero.jpg";
