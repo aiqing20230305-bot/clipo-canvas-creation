@@ -63,6 +63,7 @@ const tiers = [
 ];
 
 const PricingSection = () => {
+  const { open } = useContact();
   return (
     <section id="pricing" className="py-24">
       <div className="container mx-auto px-6">
