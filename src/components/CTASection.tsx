@@ -69,8 +69,8 @@ const CTASection = () => {
             <p className="text-muted-foreground text-base mb-10 max-w-md mx-auto">
               立即开启AI内容引擎，驶向流量增长的新大陆
             </p>
-            <motion.a
-              href="mailto:clipo.support@tezign.com?subject=Clipo%20体验申请&body=您好，我希望了解并体验Clipo的AI视频内容服务，请与我联系。"
+            <motion.button
+              onClick={open}
               className="relative inline-flex px-10 py-4 rounded-full bg-gradient-purple text-primary-foreground font-medium text-sm overflow-hidden group"
               whileHover={{ scale: 1.05, boxShadow: "0 0 40px hsl(265 85% 65% / 0.4)" }}
               whileTap={{ scale: 0.97 }}
@@ -86,7 +86,7 @@ const CTASection = () => {
                 animate={{ backgroundPosition: ["200% 0", "-200% 0"] }}
                 transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
               />
-            </motion.a>
+            </motion.button>
           </div>
         </motion.div>
       </div>

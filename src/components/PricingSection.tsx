@@ -111,8 +111,8 @@ const PricingSection = () => {
                 <p className="text-xs text-muted-foreground mb-5">{tier.extra}</p>
               )}
 
-              <a
-                href="mailto:clipo.support@tezign.com?subject=Clipo%20价格咨询&body=您好，我对Clipo的服务感兴趣，希望了解更多详情。"
+              <button
+                onClick={open}
                 className={`block w-full text-center py-2.5 rounded-full text-sm font-medium mb-6 transition-opacity ${
                   tier.highlight
                     ? "bg-gradient-purple text-primary-foreground hover:opacity-90"
@@ -120,7 +120,7 @@ const PricingSection = () => {
                 }`}
               >
                 联系咨询
-              </a>
+              </button>
 
               <p className="text-xs text-muted-foreground mb-3">包含以下功能</p>
               <ul className="space-y-2.5">
