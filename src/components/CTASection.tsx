@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { useContact } from "@/components/ContactDialog";
 
 const CTASection = () => {
+  const { open } = useContact();
+
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
