@@ -1,6 +1,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
+import casesHero from "@/assets/cases-hero.jpg";
 
 function parseStat(value: string) {
   const match = value.match(/^([^\d]*?)([\d.]+)(.*)$/);
