@@ -101,21 +101,6 @@ const PricingCalculator = () => {
           </p>
         </motion.div>
 
-        {/* Stats bar */}
-        <motion.div
-          className="flex justify-center gap-8 md:gap-16 mb-14"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.15, duration: 0.6 }}
-        >
-          {stats.map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-2xl md:text-3xl font-bold text-gradient-purple">{s.value}</p>
-              <p className="text-xs text-muted-foreground mt-1">{s.label}</p>
-            </div>
-          ))}
-        </motion.div>
 
         {/* Cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-6xl mx-auto">
