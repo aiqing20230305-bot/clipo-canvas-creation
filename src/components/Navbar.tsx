@@ -1,5 +1,6 @@
 import clipoLogo from "@/assets/clipo-logo.webp";
 import { motion } from "framer-motion";
+import { useContact } from "@/components/ContactDialog";
 
 const Navbar = () => {
   return (
