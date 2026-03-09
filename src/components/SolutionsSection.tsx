@@ -11,6 +11,7 @@ const solutions = [
     icon: Film,
     title: "素材混剪引擎",
     subtitle: "深度理解平台内容规则，一条TVC裂变千条投放素材",
+    image: solutionRemix,
     details: [
       "AI拆解脚本逻辑，按各平台调性自动重组镜头与节奏",
       "存量素材持续产出新内容，适配抖音/快手/小红书/TikTok等平台规范",
