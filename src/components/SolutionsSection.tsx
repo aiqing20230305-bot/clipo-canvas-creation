@@ -198,8 +198,8 @@ const SolutionsSection = () => {
                                 transition={{ duration: 0.5 }}
                                 className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative"
                               >
-                                <img src={sol.image} alt={sol.title} className="w-full h-40 md:h-full object-cover" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/60" />
+                                <img src={sol.image} alt={sol.title} className="w-full h-36 md:h-full object-cover opacity-70" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-card/30 to-card/80" />
                               </motion.div>
                               {/* Details */}
                               <div className="flex-1 grid gap-4">
