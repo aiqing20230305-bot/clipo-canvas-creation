@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { useContact } from "@/components/ContactDialog";
 
 const Navbar = () => {
+  const { open } = useContact();
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       {/* Top HUD status bar */}
