@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { Layers, Zap, Scale, ChevronDown } from "lucide-react";
 import { useState, useRef, useCallback } from "react";
 import painpointsHero from "@/assets/painpoints-hero.jpg";
@@ -73,7 +73,9 @@ const SpotlightPainCard = ({ children, onClick }: { children: React.ReactNode; o
 
 const PainPointsSection = () => {
   const [expanded, setExpanded] = useState<number | null>(null);
-
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
@@ -92,15 +94,16 @@ const PainPointsSection = () => {
           </h2>
         </motion.div>
 
-        {/* Section illustration */}
+        {/* Section illustration with parallax */}
         <motion.div
-          className="mb-10 rounded-2xl overflow-hidden relative"
+          ref={parallaxRef}
+          className="mb-10 rounded-2xl overflow-hidden relative h-36 md:h-48"
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img src={painpointsHero} alt="内容运营痛点" className="w-full h-36 md:h-48 object-cover opacity-60" />
+          <motion.img src={painpointsHero} alt="内容运营痛点" className="absolute inset-0 w-full h-[130%] object-cover opacity-60" style={{ y: imgY }} />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-background/20" />
         </motion.div>
