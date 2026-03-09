@@ -104,7 +104,7 @@ const PainPointsSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <motion.img src={painpointsHero} alt="内容运营痛点" className="absolute inset-0 w-full h-[130%] object-cover opacity-60" style={{ y: imgY }} />
+          <motion.img src={painpointsHero} alt="内容运营痛点" className="absolute inset-0 w-full h-[120%] md:h-[130%] object-cover opacity-60" style={{ y: imgY }} />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-background/20" />
         </motion.div>
