@@ -121,6 +121,7 @@ export const ContactProvider = ({ children }: { children: React.ReactNode }) => 
                   </a>
                 </div>
               </div>
+             </div>
             </motion.div>
           </>
         )}
