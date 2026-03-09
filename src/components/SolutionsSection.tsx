@@ -210,16 +210,7 @@ const SolutionsSection = () => {
                         <div className="px-8 md:px-10 pb-8 md:pb-10 pt-0">
                           <div className="border-t border-border/50 pt-6">
                             <div className="flex flex-col md:flex-row gap-6">
-                              {/* Solution image */}
-                              <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.5 }}
-                                className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative"
-                              >
-                                <img src={sol.image} alt={sol.title} className="w-full h-36 md:h-full object-cover opacity-70" />
-                                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-card/30 to-card/80" />
-                              </motion.div>
+                              <ParallaxImage src={sol.image} alt={sol.title} />
                               {/* Details */}
                               <div className="flex-1 grid gap-4">
                                 {sol.details.map((d, idx) => (
