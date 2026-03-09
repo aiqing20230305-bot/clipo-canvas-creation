@@ -92,6 +92,9 @@ const cases = [
 
 const CasesSection = () => {
   const [expanded, setExpanded] = useState<number | null>(null);
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
 
   return (
     <section className="py-16">
