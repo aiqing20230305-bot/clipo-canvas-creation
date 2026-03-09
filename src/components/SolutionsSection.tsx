@@ -1,6 +1,9 @@
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Film, Bot, Sparkles, ChevronRight } from "lucide-react";
 import { useState, useRef, useCallback, ReactNode } from "react";
+import solutionRemix from "@/assets/solution-remix.jpg";
+import solutionAvatar from "@/assets/solution-avatar.jpg";
+import solutionAigc from "@/assets/solution-aigc.jpg";
 
 const solutions = [
   {
