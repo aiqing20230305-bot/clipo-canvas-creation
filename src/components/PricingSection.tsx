@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Check, X } from "lucide-react";
 import IridescentCard from "./IridescentCard";
+import { useContact } from "@/components/ContactDialog";
 
 const tiers = [
   {
