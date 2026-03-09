@@ -118,7 +118,7 @@ const CasesSection = () => {
         {/* Section illustration with parallax */}
         <motion.div
           ref={parallaxRef}
-          className="mb-10 rounded-2xl overflow-hidden relative h-36 md:h-48"
+          className="mb-10 rounded-2xl overflow-hidden relative h-28 md:h-48"
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
