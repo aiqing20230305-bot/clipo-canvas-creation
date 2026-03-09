@@ -129,7 +129,7 @@ const CasesSection = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-background/20" />
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-px bg-border/50 rounded-2xl overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-px md:bg-border/50 md:rounded-2xl md:overflow-hidden">
           {cases.map((c, i) => {
             const isOpen = expanded === i;
             return (
@@ -139,33 +139,35 @@ const CasesSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-                className="bg-card p-8 md:p-10 group hover:bg-secondary/50 transition-colors duration-500 cursor-pointer select-none"
-                data-cursor="expand"
+                className="bg-card p-5 md:p-10 rounded-xl md:rounded-none group hover:bg-secondary/50 transition-colors duration-500 cursor-pointer select-none border border-border/30 md:border-0"
                 onClick={() => setExpanded(isOpen ? null : i)}
               >
-                <div className="flex items-center justify-between mb-8">
-                  <div className="flex items-center gap-3">
-                    <span className="font-display text-lg font-semibold text-foreground">{c.brand}</span>
-                    <span className="text-[10px] px-2.5 py-1 rounded-full bg-secondary text-muted-foreground tracking-wider uppercase">{c.tag}</span>
+                {/* Header */}
+                <div className="flex items-center justify-between mb-4 md:mb-8">
+                  <div className="flex items-center gap-2 md:gap-3 min-w-0">
+                    <span className="font-display text-base md:text-lg font-semibold text-foreground truncate">{c.brand}</span>
+                    <span className="text-[10px] px-2 py-0.5 md:px-2.5 md:py-1 rounded-full bg-secondary text-muted-foreground tracking-wider uppercase shrink-0">{c.tag}</span>
                   </div>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ type: "spring", stiffness: 300, damping: 25 }}
+                    className="shrink-0 ml-2"
                   >
                     <ChevronDown className="w-4 h-4 text-muted-foreground" />
                   </motion.div>
                 </div>
 
-                <div className="flex gap-6 mb-6">
+                {/* Stats - horizontal scroll on mobile */}
+                <div className="flex gap-4 md:gap-6 mb-4 md:mb-6 overflow-x-auto scrollbar-hide">
                   {c.stats.map((s) => (
-                    <div key={s.label}>
+                    <div key={s.label} className="shrink-0">
                       <AnimatedStat value={s.value} />
-                      <p className="text-xs text-muted-foreground">{s.label}</p>
+                      <p className="text-[11px] md:text-xs text-muted-foreground">{s.label}</p>
                     </div>
                   ))}
                 </div>
 
-                <p className="text-sm text-muted-foreground leading-relaxed">{c.description}</p>
+                <p className="text-xs md:text-sm text-muted-foreground leading-relaxed">{c.description}</p>
 
                 <AnimatePresence>
                   {isOpen && (
@@ -176,12 +178,12 @@ const CasesSection = () => {
                       transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       className="overflow-hidden"
                     >
-                      <div className="pt-5 mt-5 border-t border-border/50">
+                      <div className="pt-4 mt-4 md:pt-5 md:mt-5 border-t border-border/50">
                         <motion.p
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: 0.1, duration: 0.4 }}
-                          className="text-sm text-foreground/80 leading-relaxed"
+                          className="text-xs md:text-sm text-foreground/80 leading-relaxed"
                         >
                           💡 {c.insight}
                         </motion.p>
