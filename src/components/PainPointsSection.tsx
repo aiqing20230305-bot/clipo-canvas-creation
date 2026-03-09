@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { Layers, Zap, Scale, ChevronDown } from "lucide-react";
 import { useState, useRef, useCallback } from "react";
 import painpointsHero from "@/assets/painpoints-hero.jpg";
