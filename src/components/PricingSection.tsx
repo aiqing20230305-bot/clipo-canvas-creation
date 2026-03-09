@@ -110,7 +110,7 @@ const PricingSection = () => {
               )}
 
               <a
-                href="#"
+                href="mailto:clipo.support@tezign.com?subject=Clipo%20价格咨询&body=您好，我对Clipo的服务感兴趣，希望了解更多详情。"
                 className={`block w-full text-center py-2.5 rounded-full text-sm font-medium mb-6 transition-opacity ${
                   tier.highlight
                     ? "bg-gradient-purple text-primary-foreground hover:opacity-90"
