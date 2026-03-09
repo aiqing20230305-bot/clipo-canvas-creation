@@ -118,6 +118,25 @@ const SpotlightCard = ({ children, isOpen, onClick }: { children: ReactNode; isO
   );
 };
 
+/* ── Parallax image sub-component ── */
+const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5 }}
+      className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative h-36 md:h-auto"
+    >
+      <motion.img src={src} alt={alt} className="absolute inset-0 w-full h-[130%] object-cover opacity-70" style={{ y }} />
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-card/30 to-card/80" />
+    </motion.div>
+  );
+};
+
 const SolutionsSection = () => {
   const [expanded, setExpanded] = useState<number | null>(0);
 
