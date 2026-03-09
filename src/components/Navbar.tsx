@@ -36,7 +36,8 @@ const Navbar = () => {
               />
               ACTIVE
             </div>
-            <ContactButton
+            <button
+              onClick={open}
               className="relative px-5 py-2 rounded text-primary-foreground text-xs font-medium tracking-wide overflow-hidden group"
               style={{
                 background: "linear-gradient(135deg, hsl(265 85% 55% / 0.8), hsl(225 85% 50% / 0.8))",
@@ -45,7 +46,7 @@ const Navbar = () => {
             >
               <span className="relative z-10">立即体验</span>
               <span className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-            </ContactButton>
+            </button>
           </div>
         </div>
       </div>
