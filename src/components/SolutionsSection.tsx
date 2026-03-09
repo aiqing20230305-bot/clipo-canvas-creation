@@ -1,6 +1,9 @@
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Film, Bot, Sparkles, ChevronRight } from "lucide-react";
 import { useState, useRef, useCallback, ReactNode } from "react";
+import solutionRemix from "@/assets/solution-remix.jpg";
+import solutionAvatar from "@/assets/solution-avatar.jpg";
+import solutionAigc from "@/assets/solution-aigc.jpg";
 
 const solutions = [
   {
@@ -8,6 +11,7 @@ const solutions = [
     icon: Film,
     title: "素材混剪引擎",
     subtitle: "深度理解平台内容规则，一条TVC裂变千条投放素材",
+    image: solutionRemix,
     details: [
       "AI拆解脚本逻辑，按各平台调性自动重组镜头与节奏",
       "存量素材持续产出新内容，适配抖音/快手/小红书/TikTok等平台规范",
@@ -19,6 +23,7 @@ const solutions = [
     icon: Bot,
     title: "AI前贴 & 数字人",
     subtitle: "结合运营数据，黄金3秒锁住用户",
+    image: solutionAvatar,
     details: [
       "AI生成高完播率片头，第一帧就抓住注意力",
       "数字人口播替代真人，匹配不同平台的用户偏好",
@@ -30,6 +35,7 @@ const solutions = [
     icon: Sparkles,
     title: "纯AI视频生成",
     subtitle: "从内容策略到成片，全链路AI交付",
+    image: solutionAigc,
     details: [
       "Sora/Runway级文生视频，品牌故事、产品演示一键生成",
       "内置各平台内容合规审核，发布即合规",
@@ -184,21 +190,34 @@ const SolutionsSection = () => {
                       >
                         <div className="px-8 md:px-10 pb-8 md:pb-10 pt-0">
                           <div className="border-t border-border/50 pt-6">
-                            <div className="grid md:grid-cols-3 gap-4">
-                              {sol.details.map((d, idx) => (
-                                <motion.div
-                                  key={idx}
-                                  initial={{ opacity: 0, y: 15 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                  className="bg-secondary/50 rounded-xl p-4 border border-border/30"
-                                >
-                                  <p className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2">
-                                    <span className="text-primary/60 mt-0.5 shrink-0">—</span>
-                                    {d}
-                                  </p>
-                                </motion.div>
-                              ))}
+                            <div className="flex flex-col md:flex-row gap-6">
+                              {/* Solution image */}
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5 }}
+                                className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative"
+                              >
+                                <img src={sol.image} alt={sol.title} className="w-full h-40 md:h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/60" />
+                              </motion.div>
+                              {/* Details */}
+                              <div className="flex-1 grid gap-4">
+                                {sol.details.map((d, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                    className="bg-secondary/50 rounded-xl p-4 border border-border/30"
+                                  >
+                                    <p className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2">
+                                      <span className="text-primary/60 mt-0.5 shrink-0">—</span>
+                                      {d}
+                                    </p>
+                                  </motion.div>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>
