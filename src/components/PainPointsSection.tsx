@@ -100,9 +100,9 @@ const PainPointsSection = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <img src={painpointsHero} alt="内容运营痛点" className="w-full h-48 md:h-64 object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
+          <img src={painpointsHero} alt="内容运营痛点" className="w-full h-36 md:h-48 object-cover opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-background/30" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/50 to-background/20" />
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-px bg-border/50 rounded-2xl overflow-hidden">
