@@ -111,6 +111,19 @@ const CasesSection = () => {
           </h2>
         </motion.div>
 
+        {/* Section illustration */}
+        <motion.div
+          className="mb-10 rounded-2xl overflow-hidden relative"
+          initial={{ opacity: 0, scale: 0.97 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img src={casesHero} alt="案例数据" className="w-full h-48 md:h-64 object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-background/40 to-transparent" />
+        </motion.div>
+
         <div className="grid md:grid-cols-2 gap-px bg-border/50 rounded-2xl overflow-hidden">
           {cases.map((c, i) => {
             const isOpen = expanded === i;

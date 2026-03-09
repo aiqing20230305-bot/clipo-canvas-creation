@@ -190,21 +190,34 @@ const SolutionsSection = () => {
                       >
                         <div className="px-8 md:px-10 pb-8 md:pb-10 pt-0">
                           <div className="border-t border-border/50 pt-6">
-                            <div className="grid md:grid-cols-3 gap-4">
-                              {sol.details.map((d, idx) => (
-                                <motion.div
-                                  key={idx}
-                                  initial={{ opacity: 0, y: 15 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                                  className="bg-secondary/50 rounded-xl p-4 border border-border/30"
-                                >
-                                  <p className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2">
-                                    <span className="text-primary/60 mt-0.5 shrink-0">—</span>
-                                    {d}
-                                  </p>
-                                </motion.div>
-                              ))}
+                            <div className="flex flex-col md:flex-row gap-6">
+                              {/* Solution image */}
+                              <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.5 }}
+                                className="md:w-1/3 shrink-0 rounded-xl overflow-hidden relative"
+                              >
+                                <img src={sol.image} alt={sol.title} className="w-full h-40 md:h-full object-cover" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-card/60" />
+                              </motion.div>
+                              {/* Details */}
+                              <div className="flex-1 grid gap-4">
+                                {sol.details.map((d, idx) => (
+                                  <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 15 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: idx * 0.1, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                                    className="bg-secondary/50 rounded-xl p-4 border border-border/30"
+                                  >
+                                    <p className="text-sm text-muted-foreground leading-relaxed flex items-start gap-2">
+                                      <span className="text-primary/60 mt-0.5 shrink-0">—</span>
+                                      {d}
+                                    </p>
+                                  </motion.div>
+                                ))}
+                              </div>
                             </div>
                           </div>
                         </div>
