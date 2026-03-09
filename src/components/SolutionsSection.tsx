@@ -23,6 +23,7 @@ const solutions = [
     icon: Bot,
     title: "AI前贴 & 数字人",
     subtitle: "结合运营数据，黄金3秒锁住用户",
+    image: solutionAvatar,
     details: [
       "AI生成高完播率片头，第一帧就抓住注意力",
       "数字人口播替代真人，匹配不同平台的用户偏好",
