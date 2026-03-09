@@ -1,4 +1,4 @@
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
 import { Film, Bot, Sparkles, ChevronRight } from "lucide-react";
 import { useState, useRef, useCallback, ReactNode } from "react";
 import solutionRemix from "@/assets/solution-remix.jpg";
