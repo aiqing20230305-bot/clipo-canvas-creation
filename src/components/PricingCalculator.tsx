@@ -181,18 +181,26 @@ const PricingCalculator = () => {
 
         {/* Bottom note */}
         <motion.div
-          className="mt-12 text-center max-w-3xl mx-auto"
+          className="mt-12 max-w-4xl mx-auto"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           transition={{ delay: 0.3 }}
         >
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            <span className="text-foreground font-medium">内容升级</span>：AI 前贴片 3秒 + 数字人视频，每条加 ¥10 ·
-            <span className="text-foreground font-medium"> 纯 AI 生产</span>：¥100–2,000/条，按复杂度定价 ·
-            <span className="text-foreground font-medium"> 分发代运营</span>：抖音/快手 ¥6/条，小红书 ¥10/条
-          </p>
-          <p className="text-xs text-muted-foreground mt-3">所有方案均支持按需定制，量大从优</p>
+          <div className="grid sm:grid-cols-3 gap-4 rounded-2xl border border-border bg-card/50 p-5">
+            {[
+              { title: "内容升级", desc: "AI 前贴片 3秒 + 数字人视频", price: "每条 +¥10" },
+              { title: "纯 AI 生产", desc: "按复杂度定价", price: "¥100–2,000/条" },
+              { title: "分发代运营", desc: "抖音/快手 ¥6/条 · 小红书 ¥10/条", price: "按平台计费" },
+            ].map((item) => (
+              <div key={item.title} className="text-center sm:text-left p-3">
+                <p className="text-sm font-semibold text-foreground">{item.title}</p>
+                <p className="text-xs text-muted-foreground mt-1">{item.desc}</p>
+                <p className="text-xs text-primary font-medium mt-1.5">{item.price}</p>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-xs text-muted-foreground mt-4">所有方案均支持按需定制，量大从优</p>
         </motion.div>
       </div>
     </section>
