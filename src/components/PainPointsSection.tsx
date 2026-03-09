@@ -73,7 +73,9 @@ const SpotlightPainCard = ({ children, onClick }: { children: React.ReactNode; o
 
 const PainPointsSection = () => {
   const [expanded, setExpanded] = useState<number | null>(null);
-
+  const parallaxRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: parallaxRef, offset: ["start end", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
   return (
     <section className="py-20">
       <div className="container mx-auto px-6">
