@@ -73,7 +73,7 @@ const tiers = [
 const stats = [
   { value: "5元", label: "单条最低成本" },
   { value: "10,000+", label: "条/周产能" },
-  { value: "4.76%", label: "ROI 最高提升" },
+  { value: "90%", label: "人力成本节省" },
 ];
 
 const PricingCalculator = () => {
