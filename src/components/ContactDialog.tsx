@@ -44,7 +44,7 @@ export const ContactProvider = ({ children }: { children: React.ReactNode }) => 
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm"
+              className="fixed inset-0 z-[100] bg-background/80 backdrop-blur-sm"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -52,7 +52,7 @@ export const ContactProvider = ({ children }: { children: React.ReactNode }) => 
             />
             {/* Dialog */}
             <motion.div
-              className="fixed left-1/2 top-1/2 z-50 w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2"
+              className="fixed left-1/2 top-1/2 z-[101] w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2"
               initial={{ opacity: 0, scale: 0.95, y: 10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
